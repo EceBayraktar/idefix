@@ -98,6 +98,16 @@
    
 </template>
 
+<style scoped>
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  
+  border-radius: 50%; /* Yuvarlak şekil */
+  width: 40px; /* Yuvarlağın genişliği */
+  height: 40px; /* Yuvarlağın yüksekliği */
+  background-color: #e61010; /* Okların rengi */
+}
+</style>
+
 <script>
 export default {
   name: 'CarouselPage'
