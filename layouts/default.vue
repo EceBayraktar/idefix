@@ -1,6 +1,6 @@
 <template>
     <div>
-      <!-- Header -->
+      <!-- Üst kısmı -->
       <header class="d-flex align-items-center bg-primary text-white p-3">
         <!-- Buton ve Menü -->
         <div class="d-flex align-items-center">
@@ -29,6 +29,9 @@
           </li>
           <li>
             <NuxtLink to="/CarouselPage">Carousel</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/CardPage">Card</NuxtLink>
           </li>
         </ul>
       </div>
