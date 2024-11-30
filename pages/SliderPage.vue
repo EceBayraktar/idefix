@@ -206,10 +206,18 @@ export default {
   background-color: #ffffff;
   color: #0f0808;
   border: none;
-  padding: 10px 10px;
+  padding: 10px 15px; /* İç boşlukları düzenledim */
   cursor: pointer;
   font-size: 1.0rem;
+  border-radius: 50%; /* Yuvarlak şekil */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Gölge efekti */
+  z-index: 1; /* Butonları önde tutmak için */
 }
+
+.control-btn:hover {
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3); /* Hover efekti ile gölgeyi büyütme */
+}
+
 
 .card-body {
   text-align: left;
