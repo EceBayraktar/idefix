@@ -33,6 +33,9 @@
           <li>
             <NuxtLink to="/CardPage">Card</NuxtLink>
           </li>
+          <li>
+            <NuxtLink to="/UyeolPage">Üye Ol</NuxtLink>
+          </li>
         </ul>
       </div>
   

@@ -262,5 +262,5 @@
     width: 75%; /* Genişlik */
     border-radius: 4px; /* Kenarları yuvarlatma */
   }
-</style>s
+</style>
   
