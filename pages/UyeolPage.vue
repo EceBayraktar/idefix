@@ -3,7 +3,7 @@
       <div class="row row-cols-auto">
         <div class="col d-flex justify-content-start">
           <!-- İlk sütun içerisine resim ekleme -->
-          <img src="C:\Users\Asus\Desktop\logo.png" alt="Resim Açıklaması" class="img-fluid" style="width: 150px; height: 150px; margin-left: 0px;" />
+          <img src="https://asset.idefix.com/images/app-icons/logo.svg" alt="Resim Açıklaması" class="img-fluid" style="width: 150px; height: 150px; margin-left: 0px;" />
         </div>
         <div class="col"></div>
         <div class="col"></div>
@@ -123,11 +123,11 @@
   </button>
 
   
-  </template>
+</template>
   
   <script>
   export default {
-    name: "GirisyapPage",
+    name: "UyeolPage",
   };
   </script>
   
