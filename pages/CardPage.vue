@@ -176,7 +176,7 @@
         </div>
       </div>
     </div>
-  </template>
+</template>
   
   <style scoped>
   /* Kartları kapsayan konteyner */
@@ -230,9 +230,9 @@
   }
   </style>
   
-  <script>
+<script>
   export default {
     name: 'CardPage'
   }
-  </script>
+</script>
   

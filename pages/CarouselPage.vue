@@ -99,13 +99,31 @@
 </template>
 
 <style scoped>
-.carousel-control-prev-icon, .carousel-control-next-icon {
-  
-  border-radius: 50%; /* Yuvarlak şekil */
-  width: 40px; /* Yuvarlağın genişliği */
-  height: 40px; /* Yuvarlağın yüksekliği */
-  background-color: #e61010; /* Okların rengi */
+.carousel-control-prev, .carousel-control-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%); /* Dikey ortalama */
+  z-index: 1; /* Butonları slider'ın önüne getirme */
+  width: 50px; /* Buton genişliği */
+  height: 50px; /* Buton yüksekliği */
+  border-radius: 50%; /* Yuvarlak butonlar */
 }
+
+.carousel-control-prev {
+  left: 50px; /* Sol tarafa 10px uzaklık */
+}
+
+.carousel-control-next {
+  right: 50px; /* Sağ tarafa 10px uzaklık */
+}
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  border-radius: 50%;
+  width: 30px; /* Ok ikonlarının genişliği */
+  height: 30px; /* Ok ikonlarının yüksekliği */
+  background-color: #e61010; /* Ok ikonlarının rengi */
+}
+
 </style>
 
 <script>
