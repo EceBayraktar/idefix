@@ -33,6 +33,19 @@
           <li>
             <NuxtLink to="/CardPage">Card</NuxtLink>
           </li>
+          <li>
+            <NuxtLink to="/UyeolPage">Üye Ol</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/GirisyapPage">Giriş Yap</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/SliderPage">Slider</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/DropdownPage">Dropdown</NuxtLink>
+          </li>
+          
         </ul>
       </div>
   
