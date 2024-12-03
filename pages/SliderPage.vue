@@ -44,10 +44,11 @@
           </div>
         </div>
         <button id="prev-btn" class="control-btn" @click="prevSlide">←</button>
-        <button id="next-btn" class="control-btn" @click="nextSlide">→</button>
+        <button id="next-btn" class="control-btn" @click="nextSlide">→</button><br>
       </div>
     </div>
     <div class="col"></div>
+    
   </div>
 </template>
 

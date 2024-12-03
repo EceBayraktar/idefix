@@ -43,8 +43,12 @@
             <NuxtLink to="/SliderPage">Slider</NuxtLink>
           </li>
           <li>
+            <NuxtLink to="/DropdownPage">Dropdown</NuxtLink>
+          </li>
+          <li>
             <NuxtLink to="/FooterPage">Footer</NuxtLink>
           </li>
+          
           
         </ul>
       </div>
@@ -55,51 +59,50 @@
       </div>
     </div>
 </template>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+
+// Sidebar durumu
+const isSidebarOpen = ref(false);
+
+const toggleSidebar = () => {
+  isSidebarOpen.value = !isSidebarOpen.value;
+};
+</script>
+
+<style scoped>
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 1050;
+}
+
+.sidebar-open {
+  transform: translateX(0);
+}
+
+/* Butonun hareketi */
+.toggle-btn {
+  position: fixed;
+  left: 10px;
+  transition: left 0.3s ease;
+  z-index: 1100;
+  /* Buton boyutları */
+  width: 50px; /* Genişlik */
+  height: 25px; /* Yükseklik */
   
-  <script setup lang="ts">
-  import { ref } from 'vue';
-  
-  // Sidebar durumu
-  const isSidebarOpen = ref(false);
-  
-  const toggleSidebar = () => {
-    isSidebarOpen.value = !isSidebarOpen.value;
-  };
-  </script>
-  
-  <style scoped>
-  /* Sidebar */
-  .sidebar {
-    width: 250px;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: 1050;
-  }
-  
-  .sidebar-open {
-    transform: translateX(0);
-  }
-  
-  /* Butonun hareketi */
-  .toggle-btn {
-    position: fixed;
-    left: 10px;
-    transition: left 0.3s ease;
-    z-index: 1100;
-    /* Buton boyutları */
-    width: 50px; /* Genişlik */
-    height: 25px; /* Yükseklik */
-    
-  }
-  
-  .toggle-btn-shifted {
-    left: 260px; /* Sidebar genişliği + küçük bir boşluk */
-  }
-  
-  /* İçerik kayması */
-  .content-shifted {
-    margin-left: 250px;
-    transition: margin-left 0.3s ease;
-  }
-  </style>
-  
+}
+
+.toggle-btn-shifted {
+  left: 260px; /* Sidebar genişliği + küçük bir boşluk */
+}
+
+/* İçerik kayması */
+.content-shifted {
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+</style>
