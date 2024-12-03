@@ -48,11 +48,11 @@
         </div>
         <div class="dropdown-images">
           <div>
-            <img src="https://via.placeholder.com/150" alt="iPhone">
+            <img src="https://images.idefix.com/mpstatics/nav/b1e6dd4f43b7b7c5459f4c6bacd93a55-67486e974b732.jpg" alt="iPhone">
             <p>iPhone IOS Telefonlar</p>
           </div>
           <div>
-            <img src="https://via.placeholder.com/150" alt="Samsung">
+            <img src="https://images.idefix.com/mpstatics/nav/edd209fb2b60f0681af37887b1f81703-67486ea285682.jpg" alt="Samsung">
             <p>Samsung Telefonlar</p>
           </div>
         </div>

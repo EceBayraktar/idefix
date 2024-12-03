@@ -42,13 +42,13 @@
           <li>
             <NuxtLink to="/SliderPage">Slider</NuxtLink>
           </li>
-          <li>
-            <NuxtLink to="/DropdownPage">Dropdown</NuxtLink>
-          </li>
+         
           <li>
             <NuxtLink to="/FooterPage">Footer</NuxtLink>
           </li>
-          
+          <li>
+            <NuxtLink to="/BegendiklerimPage">Begendiklerim</NuxtLink>
+          </li>
           
         </ul>
       </div>
