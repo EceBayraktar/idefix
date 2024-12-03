@@ -43,7 +43,7 @@
             <NuxtLink to="/SliderPage">Slider</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/DropdownPage">Dropdown</NuxtLink>
+            <NuxtLink to="/FooterPage">Footer</NuxtLink>
           </li>
           
         </ul>

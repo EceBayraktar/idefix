@@ -36,15 +36,13 @@
       <div class="row row-cols-4">
         <div class="col"></div>
         <div class="col"><p class="h5"> Giriş Yap</p></div>
-        <div class="col"><p class="h5">Üye Ol</p></div>
+        <div class="col underline-orange"><p class="h5">Üye Ol</p></div>
         <div class="col"></div>
       </div>
     </div>
    
     
-    <div class="placeholder-container">
-  <span class="placeholder col-12 placeholder-xs half-colored"></span>
-</div>
+  
 
   
   
@@ -252,15 +250,21 @@
   }
 </style>
 <style>
-.placeholder-container {
-    position: relative;
-  }
-  
-  .placeholder.half-colored {
-    background: linear-gradient(to right, white 70%, orange 30%);
-    height: 1px; /* Daha ince yapmak için */
-    width: 75%; /* Genişlik */
-    border-radius: 4px; /* Kenarları yuvarlatma */
-  }
+
+/* Üye Ol altı turuncu çizgi */
+.underline-orange p {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-orange p::after {
+  content: "";
+  position: absolute;
+  bottom: -5px; /* Çizginin yazının altındaki mesafesi */
+  left: -20%; /* Çizgiyi biraz sola kaydır */
+  right: -100%;
+  width: 140%; /* Yazı genişliği kadar */
+  height: 2px; /* Çizgi kalınlığı */
+  background-color: orange; /* Çizgi rengi */
+}
 </style>
-  

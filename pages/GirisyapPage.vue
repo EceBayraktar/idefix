@@ -33,14 +33,12 @@
   <div class="container text-center">
     <div class="row row-cols-4">
       <div class="col"></div>
-      <div class="col"><p class="h5"> Giriş Yap</p></div>
+      <div class="col underline-orange"><p class="h5"> Giriş Yap</p></div>
       <div class="col"><p class="h5">Üye Ol</p></div>
       <div class="col"></div>
     </div>
   </div>
-  <div class="placeholder-container">
-  <span class="placeholder col-12 placeholder-xs half-colored"></span>
-</div>
+ 
 
  
   
