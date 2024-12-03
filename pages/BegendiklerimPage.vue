@@ -13,7 +13,7 @@
             </div>
           </div>
         </div>
-  
+ 
         <!-- İçerik -->
         <div class="row">
           <!-- Sol Menü -->
@@ -27,36 +27,62 @@
               <a href="#">Özel Listelerim (0)</a>
             </div>
           </div>
-  
+    
           <!-- Sağ İçerik -->
           <div class="content col-md-9">
+                         <!-- Hesabım Menüsüne Dön -->
+    <div class="d-flex align-items-center gap-2 mb-3">
+    <i class="bi bi-chevron-left"></i> <!-- Chevron Left Simgesi -->
+    <a href="#" class="text-dark text-decoration-none fw-bold">Hesabım Menüsüne Dön</a>
+  </div>
+        
             <div class="d-flex justify-content-between align-items-center">
-              <div>
-                <h6>Beğendiklerim</h6>
-                <p class="text-muted mb-0">1 Ürün</p>
+         <div><br>
+            <h5 class="fw-bold">Beğendiklerim</h5>
+                <p class="text-muted mb-0">1 Ürün</p><br>
               </div>
-              <!-- Filtre Butonu -->
-              <button class="btn filter-btn">
-                <i class="bi bi-filter"></i> Filtrele
-              </button>
+              <br>
+              <br>
+              <button type="button" class="btn custom-btn px-5 py-3 d-flex align-items-center justify-content-center gap-2 rounded-2 border">
+  <span class="font-weight-medium">Filtrele</span>
+  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M14.5765 16.514V16.2505L14.4116 16.0448L8.56266 8.75H23.424L17.4986 16.041L17.3307 16.2477V16.514V23.0683L14.5765 21.903V16.514Z" stroke="#292020" stroke-width="1.5" stroke-linecap="round"></path>
+  </svg>
+</button>
+
+            
             </div>
   
             <!-- Ürün Kartı -->
             <div class="product-card d-flex align-items-center justify-content-between mt-3">
+                <label class="d-flex align-items-center gap-3 py-3 cursor-pointer">
+  <input type="checkbox" class="form-check-input custom-checkbox" value="">
+  <img src="https://i.idefix.com/cache/600x600-0/originals/0001801769001-1.jpg" alt="Kitap Resmi">
+
+</label>
+
               <div class="d-flex align-items-center">
-                <img src="https://i.idefix.com/cache/600x600-0/originals/0001801769001-1.jpg" alt="Kitap Resmi">
-                <div class="ms-3">
+                
+               
+                    <div class="ms-0" style="margin-right: 200px;">
                   <h6>Rezonans Kanunu</h6>
                   <p class="mb-0">150,00 TL</p>
                   <p class="text-muted" style="font-size: 14px;">Satıcı: idefix</p>
                 </div>
               </div>
-              <div class="d-flex align-items-center">
-                <button class="btn btn-outline-danger btn-sm me-2">
-                  <i class="bi bi-trash"></i>
-                </button>
-                <button class="btn btn-primary btn-sm">Sepete Ekle</button>
+              <div class="d-flex flex-column align-items-end">
+  <!-- Çöp Kutusu Sağ Üste -->
+  <button class="btn btn-outline-light btn-sm mb-1">
+  <i class="bi bi-trash text-dark"></i> <!-- Çöp kutusu simgesi siyah olacak -->
+</button>
+
+
+  <!-- Sepete Ekle Butonu -->
+  <button type="button" class="btn btn-outline-dark custom-button text-center d-flex align-items-center justify-content-center gap-2">
+  Sepete Ekle
+</button>
               </div>
+
             </div>
           </div>
         </div>
@@ -147,117 +173,33 @@ div.sidebar .sidebar-links a {
 .custom-link:hover {
   color: #000; /* İsteğe bağlı: Üzerine gelindiğinde daha koyu gri */
 }
-
+input[type="checkbox"].rounded-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%; /* Tam daire */
+}
+.custom-menu {
+  margin-left: 50px; /* Daha sağa taşımak için değeri artırabilirsiniz */
+}
+.custom-button {
+    width: 200px; /* Yana doğru genişlik */
+    height: 40px; /* Yüksekliği daha kısa yapmak */
+    font-size: 16px; /* Yazı boyutunu istediğiniz gibi ayarlayabilirsiniz */
+    border-radius: 5px; /* Köşe yuvarlaması */
+  }
+  .custom-btn {
+    background-color: white; /* Butonun içini beyaz yapar */
+    color: #292020; /* Yazı rengini koyu gri/siyah yapar */
+  }
+  .custom-font-weight {
+    font-weight: 1000; /* Daha kalın yazı */
+  }
+  .custom-padding {
+    padding-left: 0 !important; /* Sola doğru tüm padding'i sıfırlar */
+    margin-left: 0 !important; /* Eğer gereksiz bir margin varsa sıfırlar */
+  }
 </style>
 
-
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Footer Design</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    .footer-social {
-      background-color: #f0f0f0;
-      padding: 10px 0;
-    }
-
-    .footer-social .social-icons i {
-      font-size: 24px;
-      margin: 0 10px;
-      color: black;
-    }
-
-    .footer-main {
-      background-color: #ffffff;
-      padding: 40px 0;
-    }
-
-    .footer-main h6 {
-      font-weight: bold;
-    }
-
-    .footer-bottom {
-      background-color: #f0f0f0;
-      padding: 10px 0;
-      text-align: center;
-      font-size: 14px;
-    }
-  </style>
-</head>
-<body>
-
-<footer>
-   Social Media Section
-  <div class="footer-social text-center">
-    <span class="fw-bold me-3">Bizi Takip Edin</span>
-    <span class="social-icons">
-      <i class="bi bi-facebook"></i>
-      <i class="bi bi-twitter"></i>
-      <i class="bi bi-instagram"></i>
-      <i class="bi bi-youtube"></i>
-      <i class="bi bi-whatsapp"></i>
-    </span>
-  </div>
-
-   Main Footer Section 
-  <div class="footer-main">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <h6>Kurumsal</h6>
-          <ul class="list-unstyled">
-            <li><a href="#">Biz Kimiz</a></li>
-            <li><a href="#">İdefix'te Satış Yap</a></li>
-            <li><a href="#">Kariyer</a></li>
-            <li><a href="#">İletişim</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h6>Yardım</h6>
-          <ul class="list-unstyled">
-            <li><a href="#">İşlem Rehberi</a></li>
-            <li><a href="#">Teslimat</a></li>
-            <li><a href="#">Ödeme</a></li>
-            <li><a href="#">İade ve Değişim</a></li>
-            <li><a href="#">SSS</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h6>Popüler Markalar</h6>
-          <ul class="list-unstyled">
-            <li><a href="#">Xiaomi</a></li>
-            <li><a href="#">Apple</a></li>
-            <li><a href="#">Samsung</a></li>
-            <li><a href="#">Sony</a></li>
-          </ul>
-        </div>
-        <div class="col-md-3">
-          <h6>Popüler Sayfalar</h6>
-          <ul class="list-unstyled">
-            <li><a href="#">Kişisel Bakım</a></li>
-            <li><a href="#">Laptop</a></li>
-            <li><a href="#">Can Yayınları</a></li>
-            <li><a href="#">Kozmetik</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-   Bottom Footer Section 
-  <div class="footer-bottom">
-    <p>&copy; 2024 idefix.com | <a href="#">Gizlilik Politikası</a> | <a href="#">Çerez Politikası</a></p>
-  </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"></script>
-</body>
-</html>
--->
 
 
 
