@@ -1,21 +1,22 @@
 <template>
-  <div class="container my-5">
+  <div class="col-12 my-5">
     <div class="row">
+      <div class="col-1"></div>
       <!-- Sepet Alanı -->
-      <div class="col-lg-8">
-        <h4>Sepetim (1 Ürün)</h4>
+      <div class="col-6"  >
+        <h6>Sepetim (1 Ürün)</h6>
         <hr />
         <!-- Satıcı Bilgileri -->
         <div
           class="p-2 mb-3  justify-content-between align-items-center"
-          style="background-color: #f7f7f7; border: 1px solid #ddd;"
+          style="background-color: #f7f7f7;"
         >
         <span>Satıcı:</span> <a href="#" class="text-decoration-none text-dark" style="color: #333;">Teknoloji Dünyası  </a>  
           <span >(4.8) </span> <span style="color:blue">Ücretsiz Kargo</span>
         </div>
         <!-- Ürün Kartı -->
         <div class="d-flex align-items-start mb-3 border-bottom pb-3">
-          <input type="checkbox" class="form-check-input me-3" />
+          <input type="checkbox" class="form-check-input me-3" v-model="isChecked" />
           <!-- Resim Kutusu -->
           <div
             class="d-flex justify-content-center align-items-center me-3"
@@ -40,8 +41,10 @@
             <!-- Ürün Sayısını Arttır/Azalt -->
             <div
               class="d-flex align-items-center justify-content-between"
-              style="width: 100px; border: 1px solid black; padding: 5px;"
+              style="width: 100px; border: 1px solid gray;border-radius: 5px; padding: 5px;"
             >
+
+
               <button
                 class="btn btn-sm btn-link text-dark p-0"
                 @click="decreaseQuantity"
@@ -68,47 +71,76 @@
         <!-- Butonlar -->
         <div class="d-flex justify-content-between mt-3">
           <!-- Alışverişe Devam Et -->
-          <button class="btn btn-link text-decoration-none">
-            <span class="me-2">&lt;</span>Alışverişe Devam Et
+          <button class="btn  text-decoration-none">
+            <span class="me-2" style="font-weight:bold"><i class="bi bi-chevron-left"></i></span>Alışverişe Devam Et
           </button>
           <!-- Sepeti Boşalt -->
           <div class="d-flex align-items-center">
-            <button class="btn  me-2 rounded-circle">
-              <i class="bi bi-trash" style="font-size:1.2rem; color: black;"></i>
+            <button class="btn rounded-circle ">
+              <i class="bi bi-trash" style="font-size:1.0rem; color: black;"></i>
             </button>
-            <button class="btn btn-link  text-decoration-none">
+            <button class="btn  text-decoration-none">
               Sepeti Boşalt
             </button>
           </div>
         </div>
       </div>
+      
+      <div class="col-1"></div>
 
       <!-- Sipariş Özeti Alanı -->
-      <div class="col-lg-4">
+      <div class="col-2">
         <h4>Sipariş Özeti</h4>
-        <hr />
+        <br>
         <div class="d-flex justify-content-between">
           <span>1 Ürün</span>
-          <span>17.069,00 TL</span>
-        </div>
-        <div class="d-flex justify-content-between text-success">
-          <span>Kargo</span>
-          <span>Ücretsiz</span>
+          <span>17.569,00 TL</span>
+        </div> <br>
+        <div class="d-flex justify-content-between text-black">
+         
+          <span >Kargo</span>
+          <p class="text-success"> Ücretsiz
+          <span class="original-price">39,99 TL</span> <!-- Üstü çizili kargo fiyatı --></p>
+          
         </div>
         <hr />
         <div class="d-flex justify-content-between fw-bold">
           <span>Toplam</span>
-          <span>17.069,00 TL</span>
+          <span>17.569,00 TL</span>
         </div>
-        <button class="btn btn-primary w-100 my-3">Alışverişi Tamamla</button>
-        <div class="border p-3 rounded">
-          <p class="fw-bold mb-2">İndirim kodum var</p>
-          <input type="text" class="form-control mb-2" placeholder="Kupon Kodu" />
-          <button class="btn btn-dark w-100">Uygula</button>
+        <button class="btn btn-primary w-100 my-5">Alışverişi Tamamla</button>
+
+        <div class="my-5">
+          <!-- İndirim Kodum Var Butonu -->
+          <button
+            class="btn w-100 d-flex justify-content-between align-items-center coupon-button"
+            @click="toggleCouponVisibility"
+          >
+            <span class="fs-6">İndirim Kodum Var</span>
+            <i :class="isCouponVisible ? 'bi bi-dash' : 'bi bi-plus'"></i>
+          </button>
+
+          <!-- Açılan Menü -->
+          <div v-if="isCouponVisible" class="coupon-menu">
+            <p class="mb-5 mt-3">
+              İndirim kodunuzu aşağıdaki alana girerek sepete
+              uygulayabilirsiniz.
+            </p>
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control coupon-input"
+                placeholder="Kupon Kodu"
+              />
+              <button class="btn btn-dark apply-coupon-btn">Uygula</button>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="col-1"></div>
     </div>
   </div>
+
 </template>
 
 <script lang="ts">
@@ -117,6 +149,8 @@ export default {
   data() {
     return {
       quantity: 1, // Başlangıç ürün sayısı
+      isChecked: true, 
+      isCouponVisible: false,
     };
   },
   methods: {
@@ -128,12 +162,21 @@ export default {
         this.quantity--;
       }
     },
+    toggleCouponVisibility() {
+      this.isCouponVisible = !this.isCouponVisible; // Görünürlüğü değiştir
+    },
   },
 };
 </script>
 
+
 <style>
-/* Ek CSS */
+.btn {
+  font-size: 1rem;
+  border-radius:2px
+}
+
+/* Genel Stil */
 .container {
   font-family: Arial, sans-serif;
 }
@@ -141,39 +184,62 @@ export default {
 h4 {
   color: #333;
 }
-
-.border-bottom {
-  border-bottom: 1px solid #ddd !important;
-}
-
 button.btn-link {
   padding: 0;
+  text-decoration: none;
+  font-weight: bold;
+  color: black; /* Yazı rengini siyah yapar */
 }
 
-button.btn-primary {
-  background-color: #0056d2;
-  border: none;
+.bi {
+  font-size: 1.2rem;
+  cursor: pointer;
 }
 
-button.btn-primary:hover {
-  background-color: #004bb5;
-}
-
-
-button.btn-dark {
-  background-color: #3a3a3a;
-  border: none;
-}
-
-button.btn-outline-dark {
-  border: 1px solid black;
-}
-
-div[style*="background-color: #f7f7f7"] {
-  font-size: 0.9rem;
-}
 
 .bi-trash {
   cursor: pointer;
 }
+
+.original-price {
+  text-decoration: line-through; /* Üstünü çizmek için */
+  color: #9b9b9b; /* Daha açık ton */
+}
+
+/* İndirim Kod Butonu */
+.coupon-button {
+  background-color: #0c45f51a;
+  color: rgb(0, 0, 0);
+  border-radius: 2px; /* Köşeli buton */ 
+}
+
+.coupon-button:hover {
+  background-color: #0c45f51a;/* Renk değişmesin */
+}
+s
+.coupon-button-active {
+  background-color: #0c45f51a;
+  color: rgb(0, 0, 0);
+}
+
+/* Açılan Menü */
+.coupon-menu {
+  background-color:#0c45f51a;
+  margin-top: 0; /* Boşluğu kaldır */
+  padding: 10px;
+  border-top: 1px solid gray; /* Üst kısmına çizgi ekler */
+}
+
+/* İndirim Kodu Kutusu */
+.coupon-input {
+  border: none;
+  border-bottom: 2px solid gray;
+  outline: none;
+  transition: border-bottom-color 0.3s ease;
+}
+button.btn {
+  height: 50px; /* Buton yüksekliğini ayarlayabilirsiniz */
+}
+
+
 </style>
