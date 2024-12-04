@@ -34,14 +34,38 @@
             <NuxtLink to="/CardPage">Card</NuxtLink>
           </li>
           <li>
+<<<<<<< HEAD
+            <NuxtLink to="/GirisyapPage">Giriş Yap</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/UyeolPage">Üye Ol</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/SepetPage">Sepet</NuxtLink>
+=======
             <NuxtLink to="/UyeolPage">Üye Ol</NuxtLink>
           </li>
           <li>
             <NuxtLink to="/GirisyapPage">Giriş Yap</NuxtLink>
+>>>>>>> c969d3585056738a74f72ba53e44ecbdef136334
           </li>
           <li>
             <NuxtLink to="/SliderPage">Slider</NuxtLink>
           </li>
+<<<<<<< HEAD
+          <li>
+            <NuxtLink to="/UruncardPage">Ürün Bilgisi</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/DenemePage">DenemePage</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/Deneme2Page">Deneme2Page</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/Deneme3Page">Deneme3Page</NuxtLink>
+          </li>
+=======
          
           <li>
             <NuxtLink to="/FooterPage">Footer</NuxtLink>
@@ -50,6 +74,7 @@
             <NuxtLink to="/BegendiklerimPage">Begendiklerim</NuxtLink>
           </li>
           
+>>>>>>> c969d3585056738a74f72ba53e44ecbdef136334
         </ul>
       </div>
   
