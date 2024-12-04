@@ -41,7 +41,7 @@
             <!-- Ürün Sayısını Arttır/Azalt -->
             <div
               class="d-flex align-items-center justify-content-between"
-              style="width: 100px; border: 1px solid gray;border-radius: 5px; padding: 5px;"
+              style="width: 120px; border: 1px solid gray;border-radius: 5px; height:40px"
             >
 
 
@@ -72,10 +72,10 @@
         <div class="d-flex justify-content-between mt-3">
           <!-- Alışverişe Devam Et -->
           <button class="btn  text-decoration-none">
-            <span class="me-2" style="font-weight:bold"><i class="bi bi-chevron-left"></i></span>Alışverişe Devam Et
+            <span class="me-2 align-items-center" style="font-weight:bold; "><i class="bi bi-chevron-left"></i></span>Alışverişe Devam Et
           </button>
           <!-- Sepeti Boşalt -->
-          <div class="d-flex align-items-center">
+          <div class="d-flex ">
             <button class="btn rounded-circle ">
               <i class="bi bi-trash" style="font-size:1.0rem; color: black;"></i>
             </button>
@@ -186,6 +186,7 @@ h4 {
 }
 button.btn-link {
   padding: 0;
+  width: 40px; /* Genişliği değiştirin */
   text-decoration: none;
   font-weight: bold;
   color: black; /* Yazı rengini siyah yapar */
