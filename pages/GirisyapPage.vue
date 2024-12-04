@@ -2,7 +2,6 @@
   <div class="container text-center">
     <div class="row row-cols-auto">
       <div class="col d-flex justify-content-start">
-        <!-- İlk sütun içerisine resim ekleme -->
         <img src="https://asset.idefix.com/images/app-icons/logo.svg" alt="Resim Açıklaması" class="img-fluid" style="width: 150px; height: 150px; margin-left: 0px;" />
       </div>
       <div class="col"></div>
@@ -38,11 +37,6 @@
       <div class="col"></div>
     </div>
   </div>
- 
-
- 
-  
-
 
   <div class="email-container">
     <form>
@@ -83,73 +77,66 @@ export default {
 </script>
 
 <style>
-/* Kapsayıcı Stilleri */
 .email-container {
   width: 100%;
   max-width: 400px;
-  margin: 0 auto; /* Ortala */
+  margin: 0 auto;
   padding: 20px;
   text-align: left;
 }
 
-/* Form Grubu */
 .form-group {
   margin-bottom: 15px;
 }
 
-/* E-posta Giriş Alanı */
 .email-input {
-  width: 100%; /* Tam genişlik */
-  padding: 10px 15px; /* İç boşluk */
+  width: 100%;
+  padding: 10px 15px; 
   font-size: 1rem;
-  color: #333; /* Ana yazı rengi */
-  border: 1px solid #ccc; /* Hafif gri kenarlık */
-  border-radius: 5px; /* Köşeleri yuvarlat */
-  outline: none; /* Odak çizgisini kaldır */
-  background-color: #eaeaea; /* Gri arka plan */
+  color: #333; 
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  outline: none; 
+  background-color: #eaeaea; 
 }
 
-/* Placeholder Rengi */
 .email-input::placeholder {
-  color: #aaa; /* Gri renk */
-  font-style: italic; /* İtalik yazı */
+  color: #aaa; 
+  font-style: italic;
 }
 
-/* Odak Durumu */
 .email-input:focus {
-  border-color: #007bff; /* Odaklanıldığında mavi kenarlık */
-  background-color: #fff; /* Beyaz arka plan */
+  border-color: #007bff; 
+  background-color: #fff;
 }
 
 
 </style>
 
 <style>
-  /* Özelleştirilmiş stil */
   .btn-primary {
-    background-color: #0C45F5; /* Mavi renk */
-    border: none; /* Kenarlık kaldırılır */
-    font-size: 1rem; /* Yazı boyutu */
-    font-weight: 500; /* Yazı kalınlığı */
-    border-radius: 0.2rem; /* Köşeleri yuvarlatır */
+    background-color: #0C45F5; 
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 0.2rem; 
   }
 
   .btn-primary:disabled {
-    background-color: #5F5353; /* Pasif durum gri renk */
-    opacity: 0.35; /* Şeffaflık efekti */
-    cursor: not-allowed; /* Pasif işaretçi */
+    background-color: #5F5353;
+    opacity: 0.35;
+    cursor: not-allowed;
   }
 
-  /* Butonu ortalamak için mx-auto ekleyebiliriz */
   .mx-auto {
-    display: block; /* Yatayda ortalanmasını sağlar */
+    display: block; 
     margin-left: auto;
     margin-right: auto;
   }
 </style>
 <style>
   body {
-    background-color: #ffffff; /* Arka plan rengini değiştir */
+    background-color: #ffffff; 
   }
 </style>
 <style>
@@ -159,8 +146,8 @@ export default {
   
   .placeholder.half-colored {
     background: linear-gradient(to left, white 40%, orange 60%);
-    height: 1px; /* Daha ince yapmak için */
-    width: 100%; /* Genişlik */
-    border-radius: 4px; /* Kenarları yuvarlatma */
+    height: 1px; 
+    width: 100%; 
+    border-radius: 4px; 
   }
 </style>

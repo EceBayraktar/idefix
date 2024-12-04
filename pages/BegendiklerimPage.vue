@@ -2,12 +2,12 @@
     <div class="page-container">
       <div class="container">
         <!-- Üst Bilgiler -->
-        <div class="row mb-3 align-items-center">
+        <div class="row mb-6 align-items-center">
           <div class="col d-flex justify-content-start align-items-center">
             <div class="user-info">
               EB
             </div>
-            <div class="ms-3">
+            <div class="ms-6">
               <h5 class="mb-1">Ece Bayraktar</h5>
               <a href="#" class="custom-link" style="font-size: 14px;">Çıkış Yap</a>
             </div>
@@ -32,7 +32,7 @@
           <div class="content col-md-9">
                          <!-- Hesabım Menüsüne Dön -->
     <div class="d-flex align-items-center gap-2 mb-3">
-    <i class="bi bi-chevron-left"></i> <!-- Chevron Left Simgesi -->
+    <i class="bi bi-chevron-left"></i> 
     <a href="#" class="text-dark text-decoration-none fw-bold">Hesabım Menüsüne Dön</a>
   </div>
         
@@ -88,7 +88,7 @@
         </div>
       </div>
     </div>
-  </template>
+</template>
   
   
   
@@ -105,22 +105,22 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #f8f9fa; /* Açık gri arka plan */
+  background-color: #f8f9fa; 
   min-height: 100%;
 }
 
 .page-container {
-  background-color: #f8f9fa; /* Sayfa arka planı */
+  background-color: #f8f9fa; 
   min-height: 100vh;
-  padding-top: 20px; /* Hafif üst boşluk */
+  padding-top: 20px;
 }
 
 .container {
-  padding: 0 15px; /* Varsayılan padding */
+  padding: 0 15px; 
 }
 
 .user-info {
-  background-color: #007bff; /* Mavi arka plan */
+  background-color: #007bff; 
   border-radius: 50%;
   width: 70px;
   height: 70px;
@@ -139,7 +139,7 @@ div.sidebar .sidebar-links a {
 
 
 .sidebar-links a:hover {
-  color: #555; /* İsteğe bağlı: Üzerine gelindiğinde koyu gri */
+  color: #555; 
 }
 
 .filter-btn {
@@ -165,38 +165,38 @@ div.sidebar .sidebar-links a {
   margin-top: 20px;
 }
 .custom-link {
-  color: #4a4a4a; /* Koyu gri */
-  text-decoration: none; /* Altı çizgisiz */
+  color: #4a4a4a; 
+  text-decoration: none; 
   
 }
 
 .custom-link:hover {
-  color: #000; /* İsteğe bağlı: Üzerine gelindiğinde daha koyu gri */
+  color: #000;
 }
 input[type="checkbox"].rounded-circle {
   width: 20px;
   height: 20px;
-  border-radius: 50%; /* Tam daire */
+  border-radius: 50%;
 }
 .custom-menu {
-  margin-left: 50px; /* Daha sağa taşımak için değeri artırabilirsiniz */
+  margin-left: 50px;
 }
 .custom-button {
-    width: 200px; /* Yana doğru genişlik */
-    height: 40px; /* Yüksekliği daha kısa yapmak */
-    font-size: 16px; /* Yazı boyutunu istediğiniz gibi ayarlayabilirsiniz */
-    border-radius: 5px; /* Köşe yuvarlaması */
+    width: 200px;
+    height: 40px; 
+    font-size: 16px; 
+    border-radius: 5px; 
   }
   .custom-btn {
-    background-color: white; /* Butonun içini beyaz yapar */
-    color: #292020; /* Yazı rengini koyu gri/siyah yapar */
+    background-color: white;
+    color: #292020; 
   }
   .custom-font-weight {
-    font-weight: 1000; /* Daha kalın yazı */
+    font-weight: 1000; 
   }
   .custom-padding {
-    padding-left: 0 !important; /* Sola doğru tüm padding'i sıfırlar */
-    margin-left: 0 !important; /* Eğer gereksiz bir margin varsa sıfırlar */
+    padding-left: 0 !important; 
+    margin-left: 0 !important;
   }
 </style>
 

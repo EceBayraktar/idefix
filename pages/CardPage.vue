@@ -179,16 +179,15 @@
 </template>
   
   <style scoped>
-  /* Kartları kapsayan konteyner */
   .card-container {
-    display: flex; /* Kartları yan yana diz */
-    gap: 20px; /* Kartlar arasında 20px boşluk bırak */
-    flex-wrap: wrap; /* Eğer ekran dar ise alt satıra geç */
-    justify-content: center; /* Kartları ortala */
-    padding: 20px; /* Konteynerin iç boşluğu */
+    display: flex;
+    gap: 20px; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    padding: 20px;
   }
   
-  /* Kart stilini ayarlıyoruz */
+  
   .card {
     position: relative;
     width: 510px;
@@ -197,22 +196,20 @@
     border-radius: 5px;
   }
   
-  /* Resmin stilini ayarlıyoruz */
   .card-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
   
-  /* Sağ kısımda yazı içeren mavi yarı opak katman */
   .card-overlay {
     position: absolute;
     top: 0;
     right: 0;
     width: 35%;
     height: 100%;
-    background-color: rgba(20, 20, 255, 0.89); /* Mavi ve yarı opak */
-    color: rgb(255, 255, 255); /* Yazı rengi beyaz */
+    background-color: rgba(20, 20, 255, 0.89); 
+    color: rgb(255, 255, 255); 
     display: flex;
     flex-direction: column;
     justify-content: center;

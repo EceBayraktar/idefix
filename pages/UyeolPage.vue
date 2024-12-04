@@ -2,7 +2,6 @@
     <div class="container text-center">
       <div class="row row-cols-auto">
         <div class="col d-flex justify-content-start">
-          <!-- İlk sütun içerisine resim ekleme -->
           <img src="https://asset.idefix.com/images/app-icons/logo.svg" alt="Resim Açıklaması" class="img-fluid" style="width: 150px; height: 150px; margin-left: 0px;" />
         </div>
         <div class="col"></div>
@@ -41,11 +40,6 @@
       </div>
     </div>
    
-    
-  
-
-  
-  
     <div class="email-container">
       <form>
         <div class="form-group">
@@ -130,128 +124,112 @@
   </script>
   
   <style>
-  /* Kapsayıcı Stilleri */
   .email-container {
     width: 100%;
     max-width: 400px;
-    margin: 0 auto; /* Ortala */
+    margin: 0 auto; 
     padding: 20px;
     text-align: left;
   }
   
-  /* Form Grubu */
   .form-group {
     margin-bottom: 15px;
   }
   
-  /* E-posta Giriş Alanı */
   .email-input {
-    width: 100%; /* Tam genişlik */
-    padding: 10px 15px; /* İç boşluk */
+    width: 100%;
+    padding: 10px 15px;
     font-size: 1rem;
-    color: #333; /* Ana yazı rengi */
-    border: 1px solid #ccc; /* Hafif gri kenarlık */
-    border-radius: 5px; /* Köşeleri yuvarlat */
-    outline: none; /* Odak çizgisini kaldır */
-    background-color: #eaeaea; /* Gri arka plan */
+    color: #333;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    outline: none;
+    background-color: #eaeaea;
   }
   
-  /* Placeholder Rengi */
   .email-input::placeholder {
-    color: #aaa; /* Gri renk */
-    font-style: italic; /* İtalik yazı */
+    color: #aaa;
+    font-style: italic;
   }
   
-  /* Odak Durumu */
   .email-input:focus {
-    border-color: #007bff; /* Odaklanıldığında mavi kenarlık */
-    background-color: #fff; /* Beyaz arka plan */
+    border-color: #007bff; 
+    background-color: #fff;
   }
-  
-  
   </style>
   
   <style>
-    /* Özelleştirilmiş stil */
     .btn-primary {
-      background-color: #0C45F5; /* Mavi renk */
-      border: none; /* Kenarlık kaldırılır */
-      font-size: 1rem; /* Yazı boyutu */
-      font-weight: 500; /* Yazı kalınlığı */
-      border-radius: 0.2rem; /* Köşeleri yuvarlatır */
+      background-color: #0C45F5; 
+      border: none; 
+      font-size: 1rem; 
+      font-weight: 500; 
+      border-radius: 0.2rem; 
     }
   
     .btn-primary:disabled {
-      background-color: #5F5353; /* Pasif durum gri renk */
-      opacity: 0.35; /* Şeffaflık efekti */
-      cursor: not-allowed; /* Pasif işaretçi */
+      background-color: #5F5353; 
+      opacity: 0.35;
+      cursor: not-allowed;
     }
   
-    /* Butonu ortalamak için mx-auto ekleyebiliriz */
     .mx-auto {
-      display: block; /* Yatayda ortalanmasını sağlar */
+      display: block; 
       margin-left: auto;
       margin-right: auto;
     }
   </style>
   <style>
     body {
-      background-color: #ffffff; /* Arka plan rengini değiştir */
+      background-color: #ffffff; 
     }
   </style>
  <style>
  ul {
-   list-style-type: square; /* Kare işaret tipi */
-   padding-left: 0; /* Soldan boşluk kaldırıldı */
-   display: flex; /* Flexbox ile ortalama */
-   flex-direction: column; /* Elemanları dikeyde sıralama */
-   align-items: center; /* Her şeyi ortalamak için */
+   list-style-type: square;
+   padding-left: 0;
+   display: flex; 
+   flex-direction: column; 
+   align-items: center; 
  }
 
  li {
-   text-align: center; /* Yazıyı ortalar */
-   margin-bottom: 10px; /* Her öğe arasına boşluk ekler */
+   text-align: center;
+   margin-bottom: 10px;
  }
 </style>
 <style>
-  /* Flexbox ile kutucukları ortalamak */
   .d-flex {
     display: flex;
-    justify-content: flex-start; /* Yalnızca sola hizalar */
-    align-items: start; /* Başlangıç hizasına alır */
+    justify-content: flex-start; 
+    align-items: start; 
   }
 
-
-  /* Kutucuk ve yazı arasındaki mesafeyi ayarlamak */
   .form-check-input {
-    margin-right: 10px; /* Kutucuk ile yazı arasındaki mesafeyi artır */
+    margin-right: 10px; 
   }
 
-  /* Yazı ve kutucuk arasındaki mesafeyi artırmak için */
   .form-check-label {
     display: inline-block;
     text-align: left;
   }
-  /* Linkleri siyah yapmak ve altını çizmek için */
+
   a.pe-auto {
-    color: black; /* Siyah renk */
-    text-decoration: underline; /* Alt çizgi */
+    color: black; 
+    text-decoration: underline; 
   }
 
-  /* Linklerin üzerinde fareyle gezildiğinde rengi değişmesin */
   a.pe-auto:hover {
-    color: black; /* Fareyle üzerine gelince renk değişmesin */
-    text-decoration: underline; /* Alt çizgi devam etsin */
+    color: black; 
+    text-decoration: underline; 
   }
 
-  /* Linkler ziyaret edildikten sonra da siyah olsun */
   a.pe-auto:visited {
-    color: black; /* Ziyaret edilen linklerin de rengi siyah olacak */
+    color: black; 
   }
 </style>
 <style>
 
-/* Üye Ol altı turuncu çizgi */
 .underline-orange p {
   position: relative;
   display: inline-block;
@@ -260,11 +238,11 @@
 .underline-orange p::after {
   content: "";
   position: absolute;
-  bottom: -5px; /* Çizginin yazının altındaki mesafesi */
-  left: -20%; /* Çizgiyi biraz sola kaydır */
+  bottom: -5px; 
+  left: -20%;
   right: -100%;
-  width: 140%; /* Yazı genişliği kadar */
-  height: 2px; /* Çizgi kalınlığı */
-  background-color: orange; /* Çizgi rengi */
+  width: 140%; 
+  height: 2px; 
+  background-color: orange;
 }
 </style>

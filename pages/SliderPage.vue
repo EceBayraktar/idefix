@@ -9,27 +9,23 @@
         <br>
         <div class="carousel" ref="carousel">
           <div class="card" v-for="(card, index) in cards" :key="index">
-            <!-- Resim için özel bir alan -->
+          
             <div class="image-container">
               <img :src="card.img" class="card-img-top small-image" :alt="card.alt || card.title">
             </div>
             <div class="card-body">
-              <!-- İndirimli fiyatın gösterilmesi -->
             
               <div class="col-10" style="text-align:center; font-size:x-small">
                 <div v-if="card.discountPrice" class="discount-price" style="border: 2px dashed rgb(38, 25, 158);">
                   Sepette {{ card.discountPrice }}
                 </div>
-                <div v-else class="empty-space" style="height:25px;"></div> <!-- Eğer indirimli fiyat yoksa boş alan -->
+                <div v-else class="empty-space" style="height:25px;"></div> 
               </div>
               <div class="stars">
-                <!-- Dolu yıldızlar -->
                 <i class="bi bi-star-fill" v-for="n in Math.floor(card.rating)" :key="'full-' + index + '-' + n"></i>
 
-                <!-- Yarım yıldız -->
                 <i class="bi bi-star-half" v-if="card.rating % 1 !== 0" :key="'half-' + index"></i>
 
-                <!-- Boş yıldızlar -->
                 <i class="bi bi-star" v-for="emptyIndex in (5 - Math.ceil(card.rating))" :key="'empty-' + index + '-' + emptyIndex"></i>
                 <span class="n">{{ card.reviews }}</span>
               </div>
@@ -81,7 +77,7 @@ export default {
     cardWidth() {
       const card = this.$refs.carousel?.children[0];
       const cardWidth = card ? card.offsetWidth : 0;
-      return cardWidth + this.cardMargin; // Kart genişliği ve margin
+      return cardWidth + this.cardMargin; 
     },
     fullStars() {
       return Array(Math.floor(5)).fill(0).map((_, i) => i);
@@ -151,7 +147,7 @@ export default {
 }
 
 .card {
-  flex: 0 0 20%; /* 5 cards visible */
+  flex: 0 0 20%; 
   margin: 10px;
   height: 500px;
   background-color: #ffffff;
@@ -163,7 +159,7 @@ export default {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* Resim için özel alan */
+
 .image-container {
   width: 100%;
   height: 200px;
@@ -189,7 +185,7 @@ export default {
   margin-bottom: 10px;
 }
 .bi-star-fill, .bi-star-half {
-  color: #ecd23e; /* Yıldız rengi */
+  color: #ecd23e; 
 }
 .bi-star{
   color: #000;
@@ -207,16 +203,16 @@ export default {
   background-color: #ffffff;
   color: #0f0808;
   border: none;
-  padding: 10px 15px; /* İç boşlukları düzenledim */
+  padding: 10px 15px; 
   cursor: pointer;
   font-size: 1.0rem;
-  border-radius: 50%; /* Yuvarlak şekil */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Gölge efekti */
-  z-index: 1; /* Butonları önde tutmak için */
+  border-radius: 50%; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+  z-index: 1; 
 }
 
 .control-btn:hover {
-  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3); /* Hover efekti ile gölgeyi büyütme */
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.3);
 }
 
 
@@ -232,28 +228,27 @@ export default {
   right: 0;
 }
 
-/* Responsive Styles */
 @media (max-width: 1200px) {
   .card {
-    flex: 0 0 25%; /* 4 cards visible */
+    flex: 0 0 25%; 
   }
 }
 
 @media (max-width: 992px) {
   .card {
-    flex: 0 0 33.33%; /* 3 cards visible */
+    flex: 0 0 33.33%; 
   }
 }
 
 @media (max-width: 768px) {
   .card {
-    flex: 0 0 50%; /* 2 cards visible */
+    flex: 0 0 50%; 
   }
 }
 
 @media (max-width: 576px) {
   .card {
-    flex: 0 0 100%; /* 1 card visible */
+    flex: 0 0 100%; 
   }
 }
 </style>

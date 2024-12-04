@@ -2,11 +2,11 @@
   <div class="col-12 my-5">
     <div class="row">
       <div class="col-1"></div>
-      <!-- Sepet Alanı -->
+      
       <div class="col-6"  >
         <h6>Sepetim (1 Ürün)</h6>
         <hr />
-        <!-- Satıcı Bilgileri -->
+        
         <div
           class="p-2 mb-3  justify-content-between align-items-center"
           style="background-color: #f7f7f7;"
@@ -14,10 +14,10 @@
         <span>Satıcı:</span> <a href="#" class="text-decoration-none text-dark" style="color: #333;">Teknoloji Dünyası  </a>  
           <span >(4.8) </span> <span style="color:blue">Ücretsiz Kargo</span>
         </div>
-        <!-- Ürün Kartı -->
+       
         <div class="d-flex align-items-start mb-3 border-bottom pb-3">
           <input type="checkbox" class="form-check-input me-3" v-model="isChecked" />
-          <!-- Resim Kutusu -->
+          
           <div
             class="d-flex justify-content-center align-items-center me-3"
             style="width: 120px; height: 120px; border: 1px solid #ddd;"
@@ -31,14 +31,12 @@
             />
           </div>
           <div>
-            <!-- Ürün Detayları -->
             <p class="mb-1">
               <strong>Samsung </strong>Galaxy S21 Fe 5g 128 Gb 8 Gb Ram Siyah (2. Nesil)
             </p>
             <p class="text-muted mb-1">Renk: Gri</p>
             <p class="text-muted">Yarın Kargoda</p>
             <p class="fw-bold">17.069,00 TL</p>
-            <!-- Ürün Sayısını Arttır/Azalt -->
             <div
               class="d-flex align-items-center justify-content-between"
               style="width: 120px; border: 1px solid gray;border-radius: 5px; height:40px"
@@ -61,20 +59,16 @@
               </button>
             </div>
           </div>
-          <!-- Çöp Kutusu İkonu -->
           <div class="ms-auto">
             <button class="btn p-0">
               <i class="bi bi-trash" style="font-size: 1.5rem; color: black;"></i>
             </button>
           </div>
         </div>
-        <!-- Butonlar -->
         <div class="d-flex justify-content-between mt-3">
-          <!-- Alışverişe Devam Et -->
           <button class="btn  text-decoration-none">
             <span class="me-2 align-items-center" style="font-weight:bold; "><i class="bi bi-chevron-left"></i></span>Alışverişe Devam Et
           </button>
-          <!-- Sepeti Boşalt -->
           <div class="d-flex ">
             <button class="btn rounded-circle ">
               <i class="bi bi-trash" style="font-size:1.0rem; color: black;"></i>
@@ -88,7 +82,6 @@
       
       <div class="col-1"></div>
 
-      <!-- Sipariş Özeti Alanı -->
       <div class="col-2">
         <h4>Sipariş Özeti</h4>
         <br>
@@ -100,7 +93,7 @@
          
           <span >Kargo</span>
           <p class="text-success"> Ücretsiz
-          <span class="original-price">39,99 TL</span> <!-- Üstü çizili kargo fiyatı --></p>
+          <span class="original-price">39,99 TL</span></p>
           
         </div>
         <hr />
@@ -111,7 +104,6 @@
         <button class="btn btn-primary w-100 my-5">Alışverişi Tamamla</button>
 
         <div class="my-5">
-          <!-- İndirim Kodum Var Butonu -->
           <button
             class="btn w-100 d-flex justify-content-between align-items-center coupon-button"
             @click="toggleCouponVisibility"
@@ -120,7 +112,6 @@
             <i :class="isCouponVisible ? 'bi bi-dash' : 'bi bi-plus'"></i>
           </button>
 
-          <!-- Açılan Menü -->
           <div v-if="isCouponVisible" class="coupon-menu">
             <p class="mb-5 mt-3">
               İndirim kodunuzu aşağıdaki alana girerek sepete
@@ -140,7 +131,6 @@
       <div class="col-1"></div>
     </div>
   </div>
-
 </template>
 
 <script lang="ts">
@@ -148,7 +138,7 @@ export default {
   name: "SepetPage",
   data() {
     return {
-      quantity: 1, // Başlangıç ürün sayısı
+      quantity: 1,
       isChecked: true, 
       isCouponVisible: false,
     };
@@ -163,7 +153,7 @@ export default {
       }
     },
     toggleCouponVisibility() {
-      this.isCouponVisible = !this.isCouponVisible; // Görünürlüğü değiştir
+      this.isCouponVisible = !this.isCouponVisible; 
     },
   },
 };
@@ -176,7 +166,6 @@ export default {
   border-radius:2px
 }
 
-/* Genel Stil */
 .container {
   font-family: Arial, sans-serif;
 }
@@ -186,10 +175,10 @@ h4 {
 }
 button.btn-link {
   padding: 0;
-  width: 40px; /* Genişliği değiştirin */
+  width: 40px; 
   text-decoration: none;
   font-weight: bold;
-  color: black; /* Yazı rengini siyah yapar */
+  color: black; 
 }
 
 .bi {
@@ -203,19 +192,18 @@ button.btn-link {
 }
 
 .original-price {
-  text-decoration: line-through; /* Üstünü çizmek için */
-  color: #9b9b9b; /* Daha açık ton */
+  text-decoration: line-through; 
+  color: #9b9b9b; 
 }
 
-/* İndirim Kod Butonu */
 .coupon-button {
   background-color: #0c45f51a;
   color: rgb(0, 0, 0);
-  border-radius: 2px; /* Köşeli buton */ 
+  border-radius: 2px;  
 }
 
 .coupon-button:hover {
-  background-color: #0c45f51a;/* Renk değişmesin */
+  background-color: #0c45f51a;
 }
 s
 .coupon-button-active {
@@ -223,15 +211,13 @@ s
   color: rgb(0, 0, 0);
 }
 
-/* Açılan Menü */
 .coupon-menu {
   background-color:#0c45f51a;
-  margin-top: 0; /* Boşluğu kaldır */
+  margin-top: 0;
   padding: 10px;
-  border-top: 1px solid gray; /* Üst kısmına çizgi ekler */
+  border-top: 1px solid gray; 
 }
 
-/* İndirim Kodu Kutusu */
 .coupon-input {
   border: none;
   border-bottom: 2px solid gray;
@@ -239,7 +225,7 @@ s
   transition: border-bottom-color 0.3s ease;
 }
 button.btn {
-  height: 50px; /* Buton yüksekliğini ayarlayabilirsiniz */
+  height: 50px; 
 }
 
 

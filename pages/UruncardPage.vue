@@ -1,7 +1,7 @@
 <template>
   <div class="row">
   <div class="col-12" style="margin-left:50px; margin-top:10px;">
-    <!-- Breadcrumb -->
+    
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#" class="text-black">Ana Sayfa</a></li>
@@ -17,7 +17,6 @@
 
   <div class="col-4">
     <div class="outer-frame">
-      <!-- İç Kutuyu Saracak Ek Kutumuz -->
       <div class="product-image text-center position-relative inner-frame">
           <div class="top-right-images">
           <img
@@ -39,14 +38,12 @@
             @click="handleClick('share')"
           />
         </div>
-        <!-- Ana Resim -->
         <img :src="mainImage" alt="Ürün Görseli" class="img-fluid " />
         <button class="arrow-button left-arrow" @click="previousImage">←</button>
         <button class="arrow-button right-arrow" @click="nextImage">→</button>
       
       </div>
 
-      <!-- Küçük Resimler -->
       <div class="d-flex justify-content-left mt-3 thumbnail-container">
         <img
           v-for="(thumb, index) in thumbnails"
@@ -60,13 +57,11 @@
       </div>
     </div>
 </div>
-    <!-- Ürün Detayları -->
     <div class="col-3">
       <h1 class="product-name">{{ productName }}</h1>
       <p class="text-muted">Guardian Yayınları</p>
       <h2 class="price">{{ price.toLocaleString() }} TL</h2>
 
-      <!-- Renk Seçenekleri -->
       <p>Kitap Formatı</p>
       <div class="row g-3">
         <div
@@ -74,7 +69,6 @@
           v-for="(option, index) in colors"
           :key="index"
         >
-          <!-- Onay Kutucuğu -->
           <input
             type="radio"
             :id="'color-' + index"
@@ -82,7 +76,6 @@
             v-model="selectedColor"
             class="form-check-input me-3"
           />
-          <!-- Küçük Resim ve Bilgiler -->
           <img
             :src="option.image"
             alt="Renk Resmi"
@@ -99,13 +92,11 @@
       </div>
      
       <div class="row"> 
-          <!-- Kitap Formatı ve Ciltli alt alta olacak -->
           <div class="col-4">
               <p>Kitap Formatı</p>
               <p style="font-weight:bold">{{ format }}</p>
           </div>
           
-          <!-- Diğer Ürün Özellikleri -->
           <div class="col-4">
               <p>Yazar</p>
               <p style="font-weight:bold; text-decoration: underline;" >{{ yazar }}</p>
@@ -135,7 +126,6 @@
   </div>
   <div class="col-2">
     <div class="price-section">
-      <!-- Fiyat Bilgisi -->
       <h3 class="price">184,78 TL</h3>
       <p class="shipping-date">07 Aralık Perşembe kargoda</p>
       <p class="installment">
@@ -143,10 +133,8 @@
       </p>
       <a href="#" class="installment-options">Farklı Taksit Seçenekleri</a>
 
-      <!-- Sepete Ekle Butonu -->
       <button class="btn btn-success w-100 mt-3">Sepete Ekle</button>
 
-      <!-- Satıcı Bilgisi -->
       <div class="seller-info mt-4" style="display: flex; justify-content: space-between; align-items: center;">
         <span>
           Satıcı: <a href="#" class="seller-name">idefix (9.7)</a>
@@ -154,13 +142,11 @@
         <a href="#" class="ask-seller">Satıcıya Soru Sor</a>
       </div>
       <hr/>
-      <!-- Fiyat Alarmı -->
       <div class="price-alert mt-3">
         <i class="bi bi-bell"></i>
         <a href="#" class="alert-link"> Fiyat Alarmı</a>
       </div>
 
-      <!-- Diğer Satıcılar -->
       <div class="other-sellers mt-4">
         <h5>Diğer Satıcılar(1)</h5>
         <div class="seller-card p-3 mt-2">
@@ -225,14 +211,12 @@ export default defineComponent({
   },
   handleClick(action: string) {
     console.log(action + ' tıklandı');
-    // Burada her tıklama için bir işlev ekleyebilirsiniz
   },
   },
 });
 </script>
 
 <style scoped>
-/* Navbar için yazı rengi ve altı çizgiyi kaldırma */
 .breadcrumb-item a {
 color: black;
 text-decoration: none;
@@ -261,7 +245,7 @@ right: 10px;
 }
 .thumbnail-container {
 display: flex;
-gap: 10px; /* Resimler arasında boşluk bırakır */
+gap: 10px; 
 max-height: 80px;
 height: 100%;
 width:80px;
@@ -271,10 +255,10 @@ max-height: 80px;
 height: 100%;
 width:80px;
 }
-/* Ürün Özellikleri */
+
 ul.list-unstyled li {
-font-size: 1rem; /* Metin boyutunu düzenleyebilirsiniz */
-margin-bottom: 10px; /* Her öğe arasına boşluk ekler */
+font-size: 1rem; 
+margin-bottom: 10px; 
 }
 
 .d-flex {
@@ -290,9 +274,6 @@ span {
 color: #555;
 }
 
-
-
-/* Ürün Detayları */
 .product-name {
 font-size: 1.3rem;
 font-weight: bold;
@@ -314,14 +295,12 @@ border: 1px solid #ddd;
 box-shadow: 0px 4px 8px rgba(184, 48, 48, 0.1);
 }
 .img-fluid {
-height: 100%; /* Resmi genişliğini konteynerin genişliğine göre ayarla */
-max-height: 400px; /* Maksimum genişlik sınırı */
-width: auto; /* Yüksekliği, genişlik ile orantılı olarak ayarla */
+height: 100%;
+max-height: 400px;
+width: auto; 
 margin-top: 5px;
 }
 
-
-/* Ürün Detayları Kutusu */
 .inner-frame {
 background-color: rgb(255, 255, 255);
 padding: 20px;
@@ -330,27 +309,25 @@ max-width: 570px;
 width: 100%;
 height: 520px;
 
-justify-content: center; /* Yatayda ortalama */
-border: 1px solid #beb6b6; /* Çizgili kenar */
+justify-content: center; 
+border: 1px solid #beb6b6; 
 }
 
-/* Renk Seçenekleri */
 .col-12.d-flex.align-items-center.border {
-padding: 1rem; /* İçerik ile kenar boşlukları */
-border: 2px solid #ddd; /* Çerçeve kalınlığı */
-width: auto; /* Genişlik */
-height: auto; /* Yükseklik */
+padding: 1rem; 
+border: 2px solid #ddd; 
+width: auto; 
+height: auto; 
 display: flex;
-align-items: center; /* Dikey hizalama */
+align-items: center;
 }
 
-/* Üstteki Küçük Resimler */
 .top-right-images {
 position: absolute;
 top: 10px;
 right: 10px;
 display: flex;
-gap: 10px; /* Resimler arasındaki boşluk */
+gap: 10px;
 }
 
 .price-section {
@@ -367,7 +344,7 @@ gap: 10px;
 }
 
 .top-image {
-cursor: pointer; /* Tıklanabilir işaretçi */
+cursor: pointer;
 width: 30px;
 height: 30px;
 }
@@ -384,15 +361,15 @@ height: 30px;
 }
 
 .installment-options {
-  color: #000; /* Siyah renk */
-  text-decoration: underline; /* Altı çizili */
+  color: #000;
+  text-decoration: underline;
   font-size: 0.9rem;
 }
 
 .btn-success {
   font-size: 1rem;
   font-weight: bold;
-  background-color: #55bd4f; /* Kırmızı renk */
+  background-color: #55bd4f; 
 border-color: #55bd4f;
 }
 
@@ -402,19 +379,19 @@ border-color: #55bd4f;
 }
 
 .seller-name {
-  text-decoration: underline; /* Altı çizili */
-  color: #000; /* Siyah renk */
+  text-decoration: underline; 
+  color: #000; 
 }
 
 .ask-seller {
   text-decoration: none;
   font-size: 0.9rem;
-  color: #000; /* Siyah renk */
+  color: #000; 
 }
 
 .price-alert {
   font-size: 0.9rem;
-  color: #000; /* Siyah renk */
+  color: #000; 
 }
 
 
@@ -430,7 +407,7 @@ border-color: #55bd4f;
 .store-name {
   font-size: 1rem;
   font-weight: bold;
-  text-decoration: underline; /* Altı çizili */
+  text-decoration: underline; 
   margin-bottom: 0;
 }
 
@@ -462,7 +439,7 @@ border-color: #55bd4f;
 }
 .alert-link {
 text-decoration: none;
-color: #000; /* Siyah renk */
+color: #000; 
 }
 
 
