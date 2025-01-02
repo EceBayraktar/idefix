@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     transpile: ['bootstrap-vue-next']
   },
   plugins: [
-    { src: '~/plugins/bootstrap.client.ts', mode: 'client' }
-  ]
-
+    { src: '~/plugins/bootstrap.client.ts', mode: 'client' },
+    { src: '~/plugins/firebase.ts', mode: 'client' }
+  ],
 })
