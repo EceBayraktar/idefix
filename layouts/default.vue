@@ -54,6 +54,9 @@
         <li>
           <NuxtLink to="/FooterPage">Footer</NuxtLink>
         </li>
+        <li>
+          <NuxtLink to="/PasswordPage">Password</NuxtLink>
+        </li>
       </ul>
     </div>
 

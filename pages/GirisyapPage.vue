@@ -1,39 +1,33 @@
 <template>
-  <div class="container text-center">
-    <div class="row row-cols-auto">
-      <div class="col d-flex justify-content-start">
-        <img src="https://asset.idefix.com/images/app-icons/logo.svg" alt="Resim Açıklaması" class="img-fluid" style="width: 150px; height: 150px; margin-left: 0px;" />
-      </div>
-      <div class="col"></div>
-      <div class="col"></div>
-      <div class="col"></div>
-    </div>
+  <div class="col col-12" style="margin-left: 50px;">
+        <img
+          src="https://asset.idefix.com/images/app-icons/logo.svg"
+          alt="Resim Açıklaması"
+          class="img-fluid"
+          style="width: 150px; height: 150px; margin-left: 0px;"
+        />
   </div>
 
   <div class="container text-center">
     <div class="row justify-content-md-center">
-      <div class="col col-lg-2"></div>
       <div class="col-md-auto" style="font-size: 28px; font-weight: 600;">
         idefix'e Hoş Geldiniz
       </div>
-      <div class="col col-lg-2"></div>
     </div>
   </div>
-
-  <div class="container text-center">
-    <div class="row row-cols-4">
-      <div class="col">-</div>
-      <div class="col"></div>
-      <div class="col"></div>
-      <div class="col"></div>
-    </div>
-  </div>
+  <br />
 
   <div class="container text-center">
     <div class="row row-cols-4">
       <div class="col"></div>
-      <div class="col underline-orange"><p class="h5"> Giriş Yap</p></div>
-      <div class="col"><p class="h5">Üye Ol</p></div>
+      <div class="col tab active">
+        <p class="h5">Giriş Yap</p>
+        <div class="underline-orange"></div>
+      </div>
+      <div class="col tab inactive">
+        <p class="h5">Üye Ol</p>
+        <div class="underline-grey"></div>
+      </div>
       <div class="col"></div>
     </div>
   </div>
@@ -42,39 +36,80 @@
     <form>
       <div class="form-group">
         <label for="email-input"></label>
-        <input
-          type="email"
-          id="email-input"
-          class="email-input"
-          placeholder="E-posta/Cep Telefonu"
-          required
-        />
+        <div class="email-input-container">
+          <input
+            type="email"
+            id="email-input"
+            class="email-input"
+            placeholder="E-posta/Cep Telefonu"
+            v-model="email"
+            @input="checkEmail"
+            required
+          />
+          <!-- Onay işareti sadece geçerli e-posta girildiğinde görünsün -->
+          <span v-if="isValidEmail" class="check-icon">
+            <i class="bi bi-check"></i>
+          </span>
+        </div>
       </div>
     </form>
   </div>
 
-  <div class="container text-center">
-    <div class="row">
-      <div class="col-md-6 offset-md-3"></div>
-    </div>
-  </div>
-
-  <button 
-  type="submit" 
-  class="btn btn-primary mx-auto py-3 disabled" 
-  style="width: 350px;" 
-  disabled>
-  Devam Et
-</button>
-
-
+  <button
+    type="submit"
+    class="btn btn-primary mx-auto py-3"
+    style="width: 350px;"
+    :disabled="!isButtonEnabled"
+    @click="goToPasswordPage"
+  >
+    Devam Et
+  </button>
 </template>
 
-<script>
-export default {
-  name: "GirisyapPage",
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { getDocs, collection } from 'firebase/firestore';
+
+// Reactive değişkenler
+const email = ref('');
+const isButtonEnabled = ref(false);
+const isValidEmail = ref(false);
+
+// Nuxt app içinden Firebase servisine erişim
+const { $db } = useNuxtApp();
+const router = useRouter();
+
+// E-posta doğrulama methodu
+const checkEmail = async () => {
+  try {
+    const querySnapshot = await getDocs(collection($db, 'users'));
+    const users = querySnapshot.docs.map((doc) => doc.data());
+    const emails = users.map((user) => user.email);
+
+    // E-posta doğrulama ve geçerlilik kontrolü
+    isValidEmail.value = validateEmail(email.value) && emails.includes(email.value);
+    isButtonEnabled.value = isValidEmail.value;
+  } catch (error) {
+    console.error('E-posta kontrolü sırasında hata oluştu:', error);
+  }
+};
+
+// E-posta doğrulama fonksiyonu
+const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+// "Devam Et" butonuna tıklanıldığında yönlendirme
+const goToPasswordPage = () => {
+  if (isButtonEnabled.value) {
+    localStorage.setItem('email', email.value); // E-posta kaydedilir
+    router.push('/PasswordPage');
+  }
 };
 </script>
+
 
 <style>
 .email-container {
@@ -89,65 +124,93 @@ export default {
   margin-bottom: 15px;
 }
 
+.email-input-container {
+  position: relative;
+}
+
 .email-input {
   width: 100%;
-  padding: 10px 15px; 
+  padding: 10px 15px;
   font-size: 1rem;
-  color: #333; 
-  border: 1px solid #ccc; 
-  border-radius: 5px; 
-  outline: none; 
-  background-color: #eaeaea; 
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  background-color: #eaeaea;
 }
 
 .email-input::placeholder {
-  color: #aaa; 
+  color: #aaa;
   font-style: italic;
 }
 
 .email-input:focus {
-  border-color: #007bff; 
+  border-color: #007bff;
   background-color: #fff;
 }
 
+.check-icon {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: white;
+  background-color: rgb(81, 197, 81);
+  border-radius: 50%;
+  padding: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.check-icon i {
+  font-size: 0.8rem;
+}
 
-</style>
+.btn-primary {
+  background-color: #0c45f5;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 0.2rem;
+}
 
-<style>
-  .btn-primary {
-    background-color: #0C45F5; 
-    border: none;
-    font-size: 1rem;
-    font-weight: 500;
-    border-radius: 0.2rem; 
-  }
+.btn-primary:disabled {
+  background-color: #5f5353;
+  opacity: 0.35;
+  cursor: not-allowed;
+}
 
-  .btn-primary:disabled {
-    background-color: #5F5353;
-    opacity: 0.35;
-    cursor: not-allowed;
-  }
+.mx-auto {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  .mx-auto {
-    display: block; 
-    margin-left: auto;
-    margin-right: auto;
-  }
-</style>
-<style>
-  body {
-    background-color: #ffffff; 
-  }
-</style>
-<style>
-.placeholder-container {
-    position: relative;
-  }
-  
-  .placeholder.half-colored {
-    background: linear-gradient(to left, white 40%, orange 60%);
-    height: 1px; 
-    width: 100%; 
-    border-radius: 4px; 
-  }
+body {
+  background-color: #ffffff;
+}
+
+.tab {
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+.tab .underline-orange {
+  height: 2px;
+  background-color: orange;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.tab.active .underline-orange {
+  background-color: orange;
+}
+
+.tab.inactive .underline-grey {
+  height: 2px;
+  background-color: #ccc;
+  width: 100%;
+  margin-top: 5px;
+  margin-left: 0px;
+}
 </style>
