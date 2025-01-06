@@ -133,30 +133,62 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: "SepetPage",
-  data() {
-    return {
-      quantity: 1,
-      isChecked: true, 
-      isCouponVisible: false,
-    };
-  },
-  methods: {
-    increaseQuantity() {
-      this.quantity++;
-    },
-    decreaseQuantity() {
-      if (this.quantity > 1) {
-        this.quantity--;
-      }
-    },
-    toggleCouponVisibility() {
-      this.isCouponVisible = !this.isCouponVisible; 
-    },
-  },
+<<script setup>
+import { ref, computed } from 'vue';
+import { useNuxtApp } from '#app';
+import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+
+const { $db } = useNuxtApp();
+
+// Firestore'dan ürünleri depolamak için bir ref
+const cartItems = ref([]);
+const totalPrice = computed(() => {
+  return cartItems.value.reduce((total, item) => total + item.price * item.quantity, 0);
+});
+
+const fetchCartItems = async () => {
+  try {
+    const querySnapshot = await getDocs(collection($db, 'sepet'));
+    cartItems.value = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.error('Error fetching cart items:', error);
+  }
 };
+
+const increaseQuantity = async (item) => {
+  try {
+    const itemRef = doc($db, 'sepet', item.id);
+    await updateDoc(itemRef, { quantity: item.quantity + 1 });
+    item.quantity++;
+  } catch (error) {
+    console.error('Error increasing quantity:', error);
+  }
+};
+
+const decreaseQuantity = async (item) => {
+  if (item.quantity > 1) {
+    try {
+      const itemRef = doc($db, 'sepet', item.id);
+      await updateDoc(itemRef, { quantity: item.quantity - 1 });
+      item.quantity--;
+    } catch (error) {
+      console.error('Error decreasing quantity:', error);
+    }
+  }
+};
+
+const removeItem = async (itemId) => {
+  try {
+    await deleteDoc(doc($db, 'sepet', itemId));
+    cartItems.value = cartItems.value.filter(item => item.id !== itemId);
+  } catch (error) {
+    console.error('Error removing item:', error);
+  }
+};
+
+onMounted(() => {
+  fetchCartItems();
+});
 </script>
 
 

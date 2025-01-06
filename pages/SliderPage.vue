@@ -35,7 +35,7 @@
               </p>
             </div>
             <div style="text-align:center">
-              <button type="button" class="btn">Sepete Ekle</button>
+              <button type="button" class="btn" @click="addToCart(card)">Sepete Ekle</button>
             </div>
           </div>
         </div>
@@ -51,33 +51,26 @@
 
 <script setup>
 import { onMounted, ref, computed } from 'vue';
-import { useNuxtApp } from '#app'; // Nuxt plugin'e erişmek için
+import { useNuxtApp } from '#app';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 
-// Firebase'den gerekli fonksiyonları import edin
-import { collection, getDocs } from 'firebase/firestore';
-
-// Reactive değişkenler
-const cards = ref([]); // Firebase'den çekilecek veriler
+const cards = ref([]);
 const currentIndex = ref(0);
 const visibleCards = 5;
 const cardMargin = 20;
 
-// Nuxt app içinden Firebase servisine erişim
 const { $db } = useNuxtApp();
 
-// Computed property: Kart genişliği hesaplanır
 const cardWidth = computed(() => {
-  const carousel = document.querySelector('.carousel'); // Ref'lere Vue'de erişim
+  const carousel = document.querySelector('.carousel');
   const card = carousel?.children[0];
   return card ? card.offsetWidth + cardMargin : 0;
 });
 
-// Firebase'den verileri çekmek için method
 const fetchCards = async () => {
   try {
     const querySnapshot = await getDocs(collection($db, 'products'));
-    const cardData = querySnapshot.docs.map((doc) => doc.data());
-    console.log(cardData); // Verileri kontrol edin
+    const cardData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     cards.value = cardData;
   } catch (error) {
     console.error('Veriler alınırken hata oluştu:', error);
@@ -85,7 +78,25 @@ const fetchCards = async () => {
 };
 
 
-// Slider hareketleri
+
+const addToCart = async (card) => {
+  console.log(card);
+  try {
+    await addDoc(collection($db, 'sepet'), {
+        color: card.color,  // Firestore'daki color alanı
+        description: card.description,  // Firestore'daki description alanı
+        discountPrice: card.discountPrice,  // Firestore'daki discountPrice alanı
+        img: card.img,  // Firestore'daki img alanı
+        price: card.price,  // Firestore'daki price alanı
+        rating: card.rating,  // Firestore'daki rating alanı
+        reviews: card.reviews,  // Firestore'daki reviews alanı
+        title: card.title,  // Firestore'daki title alanı
+      });
+  } catch (error) {
+    console.error('Sepete eklenirken hata oluştu:', error);
+  }
+};
+
 const nextSlide = () => {
   if (currentIndex.value < cards.value.length - visibleCards) {
     currentIndex.value++;
@@ -100,7 +111,6 @@ const prevSlide = () => {
   }
 };
 
-// Carousel'i güncelleme
 const updateCarousel = () => {
   const translateX = -(currentIndex.value * cardWidth.value);
   const carousel = document.querySelector('.carousel');
@@ -109,11 +119,11 @@ const updateCarousel = () => {
   }
 };
 
-// Bileşen yüklendiğinde verileri çek
 onMounted(() => {
   fetchCards();
 });
 </script>
+
 
 
 
