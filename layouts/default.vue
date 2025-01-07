@@ -57,6 +57,9 @@
         <li>
           <NuxtLink to="/PasswordPage">Password</NuxtLink>
         </li>
+        <li>
+          <NuxtLink to="/UyedevamPage">Uyeol2</NuxtLink>
+        </li>
       </ul>
     </div>
 

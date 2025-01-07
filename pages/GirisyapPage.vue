@@ -1,11 +1,11 @@
 <template>
-  <div class="col col-12" style="margin-left: 50px;">
-        <img
-          src="https://asset.idefix.com/images/app-icons/logo.svg"
-          alt="Resim Açıklaması"
-          class="img-fluid"
-          style="width: 150px; height: 150px; margin-left: 0px;"
-        />
+  <div class="col col-12" style="margin-left: 50px;" @click="goToindex">
+    <img
+      src="https://asset.idefix.com/images/app-icons/logo.svg"
+      alt="Resim Açıklaması"
+      class="img-fluid"
+      style="width: 150px; height: 150px; margin-left: 0px;"
+    />
   </div>
 
   <div class="container text-center">
@@ -24,7 +24,7 @@
         <p class="h5">Giriş Yap</p>
         <div class="underline-orange"></div>
       </div>
-      <div class="col tab inactive">
+      <div class="col tab inactive" @click="goToUyeolPage">
         <p class="h5">Üye Ol</p>
         <div class="underline-grey"></div>
       </div>
@@ -46,7 +46,6 @@
             @input="checkEmail"
             required
           />
-          <!-- Onay işareti sadece geçerli e-posta girildiğinde görünsün -->
           <span v-if="isValidEmail" class="check-icon">
             <i class="bi bi-check"></i>
           </span>
@@ -108,8 +107,17 @@ const goToPasswordPage = () => {
     router.push('/PasswordPage');
   }
 };
-</script>
 
+// "Üye Ol" butonuna tıklanıldığında yönlendirme
+const goToUyeolPage = () => {
+  router.push('/UyeolPage');
+};
+
+// "index" sayfasına yönlendirme (Resim tıklama)
+const goToindex = () => {
+  router.push('/');
+};
+</script>
 
 <style>
 .email-container {

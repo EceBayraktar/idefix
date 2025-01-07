@@ -91,6 +91,9 @@ const addToCart = async (card) => {
         rating: card.rating,  // Firestore'daki rating alanı
         reviews: card.reviews,  // Firestore'daki reviews alanı
         title: card.title,  // Firestore'daki title alanı
+        satıcı: card.satıcı,  // Firestore'daki satıcı alanı
+        satıcıpuanı: card.satıcıpuanı,  // Firestore'daki satıcıpuanı alanı
+        quantity: 1,
       });
   } catch (error) {
     console.error('Sepete eklenirken hata oluştu:', error);
