@@ -1,11 +1,11 @@
 <template>
-  <div class="col col-12" style="margin-left: 50px;" @click="goToindex">
-        <img
-          src="https://asset.idefix.com/images/app-icons/logo.svg"
-          alt="Resim Açıklaması"
-          class="img-fluid"
-          style="width: 150px; height: 150px; margin-left: 0px;"
-        />
+  <div class="col col-12" style="margin-left: 50px;">
+    <img
+      src="https://asset.idefix.com/images/app-icons/logo.svg"
+      alt="Resim Açıklaması"
+      class="img-fluid"
+      style="width: 150px; height: 150px; margin-left: 0px;"
+    />
   </div>
 
   <div class="container text-center">
@@ -16,8 +16,6 @@
     </div>
   </div>
   <br />
-
-
 
   <div class="container text-center">
     <div class="row row-cols-4">
@@ -33,7 +31,7 @@
       <div class="col"></div>
     </div>
   </div>
- 
+
   <div class="email-container">
     <form>
       <div class="form-group">
@@ -44,9 +42,14 @@
           class="email-input"
           placeholder="E-posta/Cep Telefonu"
           required
+          v-model="email"
+          @input="checkEmailExistence"
         />
       </div>
     </form>
+    <div v-if="emailExists" class="email-warning">
+    Bu e-posta adresi zaten kayıtlı!
+  </div>
   </div>
 
   <div class="container text-center">
@@ -55,74 +58,116 @@
     </div>
   </div>
 
-  <div class="d-flex justify-content-center align-items-center ">
-<div class="form-check">
-  <input type="checkbox" class="form-check-input" id="dropdownCheck1">
-  <label class="form-check-label" for="dropdownCheck1">
-      <p class="lead fs-6">
-      Turkuvaz Müzik Kitap Mağazacılık Pazarlama A.Ş tarafıma 
-      <br>ticari elektronik ileti göndermesi için <a href="#" class="pe-auto">İletişim İzinleri’ni </a>  
-      <br>okudum, onaylıyorum.
-      </p>
-  </label>
-</div>
-</div>
-
-<div
-  class="d-flex justify-content-center align-items-center"
-  style="margin-left: -20px;"
->
-  <div class="form-check">
-    <input
-      type="checkbox"
-      class="form-check-input"
-      id="dropdownCheck2"
-    />
-    <label class="form-check-label" for="dropdownCheck2">
-      <p class="lead fs-6">
-        <a href="#" class="pe-auto">Üyelik Sözleşmesi’ni</a> okudum,
-        onaylıyorum.
-        <span style="color: white;">-----------</span>
-      </p>
-    </label>
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="dropdownCheck1" v-model="check1" />
+      <label class="form-check-label" for="dropdownCheck1">
+        <p class="lead fs-6">
+          Turkuvaz Müzik Kitap Mağazacılık Pazarlama A.Ş tarafıma
+          <br />ticari elektronik ileti göndermesi için
+          <a href="#" class="pe-auto">İletişim İzinleri’ni </a>
+          <br />okudum, onaylıyorum.
+        </p>
+      </label>
+    </div>
   </div>
-</div>
 
+  <div
+    class="d-flex justify-content-center align-items-center"
+    style="margin-left: -20px;"
+  >
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="dropdownCheck2" v-model="check2" />
+      <label class="form-check-label" for="dropdownCheck2">
+        <p class="lead fs-6">
+          <a href="#" class="pe-auto">Üyelik Sözleşmesi’ni</a> okudum,
+          onaylıyorum.
+        </p>
+      </label>
+    </div>
+  </div>
 
-<div class="d-flex justify-content-center align-items-center">
-<div class="form-check">
-  <input type="checkbox" class="form-check-input" id="dropdownCheck3">
-  <label class="form-check-label" for="dropdownCheck3">
-      <p class="lead fs-6">
-          <a href="#" class="pe-auto">idefix Üyeliği Aydınlatma Metni’ni</a> okudum, onaylıyorum.</p>
-                 
-  </label>
-</div>
-</div>
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" id="dropdownCheck3" v-model="check3" />
+      <label class="form-check-label" for="dropdownCheck3">
+        <p class="lead fs-6">
+          <a href="#" class="pe-auto">idefix Üyeliği Aydınlatma Metni’ni</a> okudum, onaylıyorum.
+        </p>
+      </label>
+    </div>
+  </div>
 
-        <button 
-  type="submit" 
-  class="btn btn-primary mx-auto py-3 disabled" 
-  style="width: 350px;" 
-  disabled>
-  Devam Et
-</button>
-
-
+  <button
+    type="submit"
+    class="btn btn-primary mx-auto py-3"
+    style="width: 350px;"
+    :disabled="isButtonDisabled"
+    @click="goToUyedevamPage"
+  >
+    Devam Et
+  </button>
 </template>
 
 <script>
+import { ref } from "vue"
+import { useRouter } from "vue-router"; // Router importu
+import { useNuxtApp } from "#app"; // Nuxt plugin'e erişim
+import { getDocs, collection } from "firebase/firestore";
+
+
 export default {
   name: "UyeolPage",
-  methods: {
-    goToGirisyapPage() {
-      // Navigates to the GirisyapPage
-      this.$router.push({ name: 'GirisyapPage' });
-    },
-    goToindex() {
-      // Navigates to the GirisyapPage
-      this.$router.push({ name: 'index' });
-    }
+  setup() {
+    const { $db } = useNuxtApp();
+    const router = useRouter(); // Router instance
+    const email = ref("");
+    const check1 = ref(false);
+    const check2 = ref(false);
+    const check3 = ref(false);
+    const emailExists = ref(false);
+    
+    const isButtonDisabled = ref(true); // Başlangıçta buton devre dışı
+
+    const checkEmailExistence = async () => {
+      // E-posta alanı boşsa buton devre dışı kalır
+      if (!email.value) {
+        isButtonDisabled.value = true;
+        return;
+      }
+
+      // Firestore email collection check
+      const usersRef = collection($db, "users"); // 'users' koleksiyonunu değiştirin
+      const querySnapshot = await getDocs(usersRef);
+      emailExists.value = false;
+
+      querySnapshot.forEach((doc) => {
+        if (doc.data().email === email.value) {
+          emailExists.value = true;
+        }
+      });
+
+      // E-posta mevcut değilse ve checkbox'lar işaretliyse buton aktif olur
+      // Eğer email mevcut değilse ve her iki checkbox işaretli ise buton aktif
+      isButtonDisabled.value = emailExists.value || !(check2.value && check3.value);
+    };
+
+    const goToUyedevamPage = () => {
+      if (!isButtonDisabled.value) {
+        router.push("/UyedevamPage"); // UyedevamPage'e yönlendir
+      }
+    };
+
+    return {
+      email,
+      check1,
+      check2,
+      check3,
+      emailExists,
+      isButtonDisabled,
+      checkEmailExistence,
+      goToUyedevamPage,
+    };
   }
 };
 </script>
@@ -228,5 +273,12 @@ body {
   width: 100%;
   margin-top: 5px;
   margin-left: 0px;
+}
+
+/* Yeni stil - e-posta uyarısı */
+.email-warning {
+  color: #e74c3c;
+  font-size: 14px;
+  text-align: center;
 }
 </style>

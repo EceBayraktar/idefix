@@ -17,4 +17,7 @@ export default defineNuxtConfig({
     { src: '~/plugins/bootstrap.client.ts', mode: 'client' },
     { src: '~/plugins/firebase.ts', mode: 'client' }
   ],
+  modules: [
+    '@pinia/nuxt',
+  ],
 })
