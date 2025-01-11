@@ -128,9 +128,8 @@
         // Ek kullanıcı bilgilerini Firestore'a kaydetme
         const usersCollection = collection($db, 'users');
         await addDoc(usersCollection, {
-          uid: user.uid,
-          firstName: form.value.firstName,
-          lastName: form.value.lastName,
+          ad: form.value.firstName,
+          soyad: form.value.lastName,
           email: form.value.email,
         });
   

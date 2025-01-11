@@ -157,6 +157,9 @@ export default {
         router.push("/UyedevamPage"); // UyedevamPage'e yönlendir
       }
     };
+    const goToGirisyapPage = () => {
+      router.push('/GirisyapPage');
+    };
 
     return {
       email,
@@ -167,6 +170,7 @@ export default {
       isButtonDisabled,
       checkEmailExistence,
       goToUyedevamPage,
+      goToGirisyapPage,
     };
   }
 };
