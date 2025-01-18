@@ -51,8 +51,9 @@
               required
             />
             <button type="button" class="toggle-password" @click="togglePassword">
-              <span>{{ showPassword ? '🙈' : '👁️' }}</span>
-            </button>
+      <i :class="showPassword ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+    </button>
+
           </div>
           <button :disabled="!isFormValid" type="submit" class="submit-button">
             Üye Ol
@@ -62,86 +63,88 @@
     </div>
 </template>
   
-  <script setup>
-  import { ref, computed } from 'vue';
-  import { useRouter } from 'vue-router';
-  import { getDocs, collection, query, where } from 'firebase/firestore';
-  import { createUserWithEmailAndPassword } from 'firebase/auth';
-  
-  const { $db, $auth } = useNuxtApp();
-  const router = useRouter();
-  
-  const currentPage = ref(1);
-  const email = ref('');
-  const form = ref({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-  });
-  
-  const showPassword = ref(false);
-  const togglePassword = () => {
-    showPassword.value = !showPassword.value;
-  };
-  
-  const isFormValid = computed(() => {
-    return (
-      form.value.firstName.trim() !== '' &&
-      form.value.lastName.trim() !== '' &&
-      form.value.password.trim() !== ''
-    );
-  });
-  
-  const checkEmail = async () => {
+<script setup>
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { getDocs, collection, query, where, addDoc } from 'firebase/firestore';  // addDoc fonksiyonunu ekledik
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+
+const { $db, $auth } = useNuxtApp();
+const router = useRouter();
+
+const currentPage = ref(1);
+const email = ref('');
+const form = ref({
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+});
+
+const showPassword = ref(false);
+const togglePassword = () => {
+  showPassword.value = !showPassword.value;
+};
+
+const isFormValid = computed(() => {
+  return (
+    form.value.firstName.trim() !== '' &&
+    form.value.lastName.trim() !== '' &&
+    form.value.password.trim() !== ''
+  );
+});
+
+const checkEmail = async () => {
+  try {
+    const usersCollection = collection($db, 'users');
+    const q = query(usersCollection, where('email', '==', email.value));
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      form.value.email = email.value;
+      currentPage.value = 2;
+    } else {
+      alert('Bu e-posta adresi zaten kayıtlı.');
+    }
+  } catch (error) {
+    console.error('E-posta kontrol hatası:', error);
+    alert('Bir hata oluştu.');
+  }
+};
+
+const goBack = () => {
+  currentPage.value = 1;
+};
+
+const handleSubmit = async () => {
+  if (isFormValid.value) {
     try {
+      // Kullanıcıyı Firebase Auth ile kaydet
+      const userCredential = await createUserWithEmailAndPassword(
+        $auth,
+        form.value.email,
+        form.value.password
+      );
+      const user = userCredential.user;
+
+      // Kullanıcı bilgilerini Firestore'a kaydet
       const usersCollection = collection($db, 'users');
-      const q = query(usersCollection, where('email', '==', email.value));
-      const querySnapshot = await getDocs(q);
-  
-      if (querySnapshot.empty) {
-        form.value.email = email.value;
-        currentPage.value = 2;
-      } else {
-        alert('Bu e-posta adresi zaten kayıtlı.');
-      }
+      await addDoc(usersCollection, {
+        firstName: form.value.firstName,  // formda ad olarak tanımlanmış
+        lastName: form.value.lastName,    // formda soyad olarak tanımlanmış
+        email: form.value.email,
+      });
+
+      alert('Üyelik başarıyla tamamlandı!');
+      router.push('/');
     } catch (error) {
-      console.error('E-posta kontrol hatası:', error);
-      alert('Bir hata oluştu.');
+      console.error('Kayıt hatası:', error);
+      alert('Kayıt sırasında bir hata oluştu.');
     }
-  };
-  
-  const goBack = () => {
-    currentPage.value = 1;
-  };
-  
-  const handleSubmit = async () => {
-    if (isFormValid.value) {
-      try {
-        const userCredential = await createUserWithEmailAndPassword(
-          $auth,
-          form.value.email,
-          form.value.password
-        );
-        const user = userCredential.user;
-  
-        // Ek kullanıcı bilgilerini Firestore'a kaydetme
-        const usersCollection = collection($db, 'users');
-        await addDoc(usersCollection, {
-          ad: form.value.firstName,
-          soyad: form.value.lastName,
-          email: form.value.email,
-        });
-  
-        alert('Üyelik başarıyla tamamlandı!');
-        router.push('/');
-      } catch (error) {
-        console.error('Kayıt hatası:', error);
-        alert('Kayıt sırasında bir hata oluştu.');
-      }
-    }
-  };
-  </script>
+  }
+};
+</script>
+
   
   <style scoped>
   .register-container {

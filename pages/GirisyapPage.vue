@@ -66,9 +66,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { getDocs, collection } from 'firebase/firestore';
 
 // Reactive değişkenler
 const email = ref('');
@@ -76,18 +75,15 @@ const isButtonEnabled = ref(false);
 const isValidEmail = ref(false);
 
 // Nuxt app içinden Firebase servisine erişim
-const { $db } = useNuxtApp();
+const { $auth } = useNuxtApp();
 const router = useRouter();
 
-// E-posta doğrulama methodu
+
+// E-posta doğrulama fonksiyonu
 const checkEmail = async () => {
   try {
-    const querySnapshot = await getDocs(collection($db, 'users'));
-    const users = querySnapshot.docs.map((doc) => doc.data());
-    const emails = users.map((user) => user.email);
-
     // E-posta doğrulama ve geçerlilik kontrolü
-    isValidEmail.value = validateEmail(email.value) && emails.includes(email.value);
+    isValidEmail.value = validateEmail(email.value);
     isButtonEnabled.value = isValidEmail.value;
   } catch (error) {
     console.error('E-posta kontrolü sırasında hata oluştu:', error);

@@ -59,83 +59,66 @@
     </div>
 </template>
   
-  <script setup>
-  import { ref, onMounted } from 'vue';
-  import { useRouter } from 'vue-router';
-  import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-  import { getDocs, collection, query, where } from 'firebase/firestore';
-  
-  const { $db } = useNuxtApp();
-  
-  const email = ref('');
-  const password = ref('');
-  const passwordVisible = ref(false);
-  const emailText = ref('');
-  const formError = ref(false);
-  const isChecked = ref(false);
-  
-  const router = useRouter();
-  
-  onMounted(() => {
-    const savedEmail = localStorage.getItem('email');
-    if (savedEmail) {
-      emailText.value = `${savedEmail} adresinizle giriş yapmak için son bir adımınız kaldı. Şifrenizi girin.`;
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+
+const { $db } = useNuxtApp();
+
+const email = ref('');
+const password = ref('');
+const passwordVisible = ref(false);
+const emailText = ref('');
+const formError = ref(false);
+const isChecked = ref(false);
+
+const router = useRouter();
+
+onMounted(() => {
+  const savedEmail = localStorage.getItem('email');
+  if (savedEmail) {
+    emailText.value = `${savedEmail} adresinizle giriş yapmak için son bir adımınız kaldı. Şifrenizi girin.`;
+  }
+});
+
+const togglePasswordVisibility = () => {
+  passwordVisible.value = !passwordVisible.value;
+};
+
+const goToLoginPage = () => {
+  router.push('/GirisyapPage');
+};
+
+// Firebase Authentication ile şifre doğrulama
+const validatePassword = async () => {
+  const savedEmail = localStorage.getItem('email');
+  const auth = getAuth();
+
+  try {
+    // Firebase Authentication ile giriş yapmaya çalış
+    await signInWithEmailAndPassword(auth, savedEmail, password.value);
+    
+    // Eğer giriş başarılıysa, anasayfaya yönlendir
+    router.push('/');
+  } catch (error) {
+    console.error(error.message);
+    formError.value = true;
+    if (error.code === 'auth/wrong-password') {
+      formError.message = 'Şifre yanlış. Lütfen tekrar deneyin.';
+    } else if (error.code === 'auth/user-not-found') {
+      formError.message = 'Bu email ile kayıtlı bir kullanıcı bulunamadı.';
+    } else {
+      formError.message = 'Bir hata oluştu. Lütfen tekrar deneyin.';
     }
-  });
-  
-  const togglePasswordVisibility = () => {
-    passwordVisible.value = !passwordVisible.value;
-  };
-  
-  const goToLoginPage = () => {
-    router.push('/GirisyapPage');
-  };
-  
-  const validatePassword = async () => {
-    const savedEmail = localStorage.getItem('email');
-    const auth = getAuth();
-  
-    try {
-      await signInWithEmailAndPassword(auth, savedEmail, password.value);
-  
-      const userRef = collection($db, 'users');
-      const q = query(userRef, where("email", "==", savedEmail));
-      const querySnapshot = await getDocs(q);
-  
-      if (querySnapshot.empty) {
-        formError.value = true;
-        return;
-      }
-  
-      const users = querySnapshot.docs[0].data();
-      const storedPassword = users.password;
-  
-      if (storedPassword === password.value) {
-        formError.value = false;
-        router.push('/');
-      } else {
-        formError.value = true;
-        formError.message = 'Girdiğiniz şifre hatalı.';
-      }
-  
-    } catch (error) {
-      console.error(error.message);
-      formError.value = true;
-      if (error.code === 'auth/wrong-password') {
-        formError.message = 'Şifre yanlış. Lütfen tekrar deneyin.';
-      } else if (error.code === 'auth/user-not-found') {
-        formError.message = 'Bu email ile kayıtlı bir kullanıcı bulunamadı.';
-      } else {
-        formError.message = 'Bir hata oluştu. Lütfen tekrar deneyin.';
-      }
-    }
-  };
-  
-  const toggleCheck = () => {
-    isChecked.value = !isChecked.value;
-  };
-  </script>
-  
+  }
+};
+
+const toggleCheck = () => {
+  isChecked.value = !isChecked.value;
+};
+</script>
+
   <style scoped>
   .login-container {
     max-width: 400px;
