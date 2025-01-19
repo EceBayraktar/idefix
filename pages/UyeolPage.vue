@@ -1,5 +1,5 @@
 <template>
-  <div class="col col-12" style="margin-left: 50px;">
+  <div class="col col-12" style="margin-left: 50px;" @click="goToindex">
     <img
       src="https://asset.idefix.com/images/app-icons/logo.svg"
       alt="Resim Açıklaması"
@@ -115,7 +115,6 @@ import { useRouter } from "vue-router"; // Router importu
 import { useNuxtApp } from "#app"; // Nuxt plugin'e erişim
 import { getDocs, collection } from "firebase/firestore";
 
-
 export default {
   name: "UyeolPage",
   setup() {
@@ -128,13 +127,14 @@ export default {
     const emailExists = ref(false);
     
     const isButtonDisabled = ref(true); // Başlangıçta buton devre dışı
-
+    
     const checkEmailExistence = async () => {
       // E-posta alanı boşsa buton devre dışı kalır
       if (!email.value) {
         isButtonDisabled.value = true;
         return;
       }
+
 
       // Firestore email collection check
       const usersRef = collection($db, "users"); // 'users' koleksiyonunu değiştirin
@@ -151,7 +151,7 @@ export default {
       // Eğer email mevcut değilse ve her iki checkbox işaretli ise buton aktif
       isButtonDisabled.value = emailExists.value || !(check2.value && check3.value);
     };
-
+    
     const goToUyedevamPage = () => {
       if (!isButtonDisabled.value) {
         router.push("/UyedevamPage"); // UyedevamPage'e yönlendir
@@ -160,6 +160,11 @@ export default {
     const goToGirisyapPage = () => {
       router.push('/GirisyapPage');
     };
+    const goToindex = () => {
+      router.push('/');
+    };
+
+    
 
     return {
       email,
@@ -171,6 +176,7 @@ export default {
       checkEmailExistence,
       goToUyedevamPage,
       goToGirisyapPage,
+      goToindex,
     };
   }
 };

@@ -1,12 +1,12 @@
 <template>
-    <div col col-12 style="margin-left:50px">
-        <img
-          src="https://asset.idefix.com/images/app-icons/logo.svg"
-          alt="Resim Açıklaması"
-          class="img-fluid"
-          style="width: 150px; height: 150px; margin-left: 0px;"
-        />
-    </div>
+    <div class="col col-12" style="margin-left: 50px;" @click="goToindex">
+    <img
+      src="https://asset.idefix.com/images/app-icons/logo.svg"
+      alt="Resim Açıklaması"
+      class="img-fluid"
+      style="width: 150px; height: 150px; margin-left: 0px;"
+    />
+  </div>
     <div class="login-container">
       <div class="back-link">
         <a href="#" class="back-button" @click.prevent="goToLoginPage">
@@ -89,7 +89,9 @@ const togglePasswordVisibility = () => {
 const goToLoginPage = () => {
   router.push('/GirisyapPage');
 };
-
+const goToindex = () => {
+      router.push('/');
+};
 // Firebase Authentication ile şifre doğrulama
 const validatePassword = async () => {
   const savedEmail = localStorage.getItem('email');

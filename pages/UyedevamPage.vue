@@ -1,4 +1,12 @@
 <template>
+  <div class="col col-12" style="margin-left: 50px;" @click="goToindex">
+    <img
+      src="https://asset.idefix.com/images/app-icons/logo.svg"
+      alt="Resim Açıklaması"
+      class="img-fluid"
+      style="width: 150px; height: 150px; margin-left: 0px;"
+    />
+  </div>
     <div class="register-container">
       <div v-if="currentPage === 1">
         <div class="register-header">
@@ -114,6 +122,9 @@ const checkEmail = async () => {
 
 const goBack = () => {
   currentPage.value = 1;
+};
+const goToindex = () => {
+      router.push('/');
 };
 
 const handleSubmit = async () => {
