@@ -66,9 +66,9 @@
       <HeaderPage v-if="isHomePage" />
       <CarouselPage v-if="isHomePage" />
       <SliderPage v-if="isHomePage" />
-      <div class="col" style="padding-top:1500px"></div>
+      <div v-if="isHomePage" class="col" style="padding-top:1500px"></div>
       <CardPage v-if="isHomePage" />
-      <div class="col" style="padding-top:250px"></div>
+      <div v-if="isHomePage" class="col" style="padding-top:250px"></div>
       <FooterPage v-if="isHomePage" />
       <UyeolPage v-if="isUyeolPage" />
       <UyedevamPage v-if="isUyedevamPage" />

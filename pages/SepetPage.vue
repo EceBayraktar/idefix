@@ -53,7 +53,7 @@
               </div>
 
               <div class="ms-auto">
-                <button class="btn p-0" @click="removeItem(item.id)">
+                <button class="btn p-0" @click="removeItemByDescription(item.description)">
                   <i class="bi bi-trash" style="font-size: 1.5rem; color: black;"></i>
                 </button>
               </div>
@@ -130,7 +130,7 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router'; // Import Vue Router
 import { useNuxtApp } from '#app';
-import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 const { $db } = useNuxtApp();
 const router = useRouter(); // Access the router instance
@@ -169,20 +169,20 @@ const fetchCartItems = async () => {
   try {
     const querySnapshot = await getDocs(collection($db, 'sepet'));
     const fetchedItems = querySnapshot.docs.map(doc => ({
-      id: doc.id,
+      id: doc.id, // Use Firestore document ID
       ...doc.data(),
-      price: parseFloat(doc.data().price),  // Fiyatı sayıya çevir
-      quantity: 1,  // Varsayılan olarak 1 miktar
+      price: parseFloat(doc.data().price), // Convert price to a number
+      quantity: 1, // Default quantity
     }));
 
-    // Aynı ürünün miktarını birleştir
+    // Merge duplicate items and update quantities
     const mergedItems = [];
     fetchedItems.forEach(item => {
       const existingItem = mergedItems.find(i => i.title === item.title);
       if (existingItem) {
-        existingItem.quantity++; // Aynı ürün varsa miktarını artır
-        // Firestore'daki quantity değerini güncelle
-        updateDoc(doc($db, 'sepet', item.title), { quantity: existingItem.quantity });
+        existingItem.quantity++; // Increment quantity if the product already exists
+        // Update the quantity in Firestore
+        updateDoc(doc($db, 'sepet', item.id), { quantity: existingItem.quantity });
       } else {
         mergedItems.push(item);
       }
@@ -197,45 +197,61 @@ const fetchCartItems = async () => {
 
 const increaseQuantity = async (item) => {
   try {
-    const itemRef = doc($db, 'sepet', item.id);
-    await updateDoc(itemRef, { quantity: item.quantity + 1 });  // Firestore'da quantity artır
-    item.quantity++;  // Vue'deki local state'i güncelle
+    item.quantity++;
+    await updateDoc(doc($db, 'sepet', item.id), { quantity: item.quantity });
   } catch (error) {
     console.error('Error increasing quantity:', error);
   }
 };
 
-
 const decreaseQuantity = async (item) => {
-  if (item.quantity > 1) {  // Miktar 1'den küçük olamaz
-    try {
-      const itemRef = doc($db, 'sepet', item.id);
-      await updateDoc(itemRef, { quantity: item.quantity - 1 });  // Firestore'da quantity azalt
-      item.quantity--;  // Vue'deki local state'i güncelle
-    } catch (error) {
-      console.error('Error decreasing quantity:', error);
-    }
-  }
-};
-
-
-// Ürünü sepetten kaldırma
-const removeItem = async (itemId) => {
   try {
-    await deleteDoc(doc($db, 'sepet', itemId));
-    cartItems.value = cartItems.value.filter(item => item.id !== itemId);
+    if (item.quantity > 1) {
+      item.quantity--;
+      await updateDoc(doc($db, 'sepet', item.id), { quantity: item.quantity });
+    }
   } catch (error) {
-    console.error('Error removing item:', error);
+    console.error('Error decreasing quantity:', error);
   }
 };
+
+const removeItemByDescription = async (description) => {
+  try {
+    // Firestore'daki 'sepet' koleksiyonundan belgeyi sorgula
+    const q = query(collection($db, "sepet"), where("description", "==", description));
+    const querySnapshot = await getDocs(q);
+
+    // Eğer belge bulunduysa, sil
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach(async (docSnap) => {
+        const docRef = doc($db, "sepet", docSnap.id); // Belge referansını al
+        await deleteDoc(docRef); // Belgeyi sil
+        console.log(`Ürün başarıyla silindi: ${description}`);
+      });
+
+      // Yerel veriyi güncelle
+      cartItems.value = cartItems.value.filter((item) => item.description !== description);
+    } else {
+      console.log("Bu açıklamaya sahip bir ürün bulunamadı.");
+    }
+  } catch (error) {
+    console.error("Ürünü silerken bir hata oluştu:", error);
+  }
+};
+
 
 const clearCart = async () => {
   try {
-    const batchPromises = cartItems.value.map(item => deleteDoc(doc($db, 'sepet', item.id)));
-    await Promise.all(batchDelete);  // Tüm öğeleri Firestore'dan sil
-    cartItems.value = [];  // Vue'deki local state'i sıfırla
+    const querySnapshot = await getDocs(collection($db, 'sepet'));
+    const deletePromises = querySnapshot.docs.map((docSnapshot) => {
+      return deleteDoc(doc($db, 'sepet', docSnapshot.id));
+    });
+
+    await Promise.all(deletePromises); // Tüm öğeleri sil
+    cartItems.value = []; // Vue tarafında sepeti boşalt
+    console.log('Sepet başarıyla boşaltıldı!');
   } catch (error) {
-    console.error('Error clearing cart:', error);
+    console.error('Sepeti boşaltırken bir hata oluştu:', error);
   }
 };
 
