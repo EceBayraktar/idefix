@@ -4,11 +4,14 @@
         <!-- Üst Bilgiler -->
         <div class="row mb-6 align-items-center">
           <div class="col d-flex justify-content-start align-items-center">
-            <div class="user-info">
-              EB
+            <div v-if="user">
+              <h1>{{ user.name }} {{ user.lastname }}</h1>
+              <p>Initials: {{ user.initials }}</p>
+            </div>
+            <div v-else>
+              <p>User not found or loading...</p>
             </div>
             <div class="ms-6">
-              <h5 class="mb-1">Ece Bayraktar</h5>
               <a href="#" class="custom-link" style="font-size: 14px;">Çıkış Yap</a>
             </div>
           </div>
@@ -20,10 +23,10 @@
           <div class="sidebar col-md-3">
             <h6>Listelerim</h6>
             <div class="sidebar-links">
-              <a href="#">Beğendiklerim</a><br><br>
-              <a href="#">Sonra Satın Alacaklarım</a><br><br>
-              <a href="#">Stok Habercim</a><br><br>
-              <a href="#">Fiyat Alarmı</a><br><br>
+              <a href="#">Beğendiklerim</a>
+              <a href="#">Sonra Satın Alacaklarım</a>
+              <a href="#">Stok Habercim</a>
+              <a href="#">Fiyat Alarmı</a>
               <a href="#">Özel Listelerim (0)</a>
             </div>
           </div>
@@ -92,12 +95,20 @@
   
   
   
-  <script>
-  export default {
-    name: "BegendiklerimPage",
-  };
-  </script>
-  
+<script setup>
+import { useUserStore } from '@/stores/userStore';
+// Store'u import et
+
+const userStore = useUserStore();  // Store'u kullanmaya başla
+
+const email = 'user@example.com';  // Burada kullanıcı e-posta adresini kullanabilirsiniz
+
+// Sayfa yüklendiğinde kullanıcı verisini çek
+userStore.fetchUserByEmail(email);
+
+// Veriyi almak için user'a eriş
+const user = userStore.user;
+</script> 
 
   
 
@@ -112,7 +123,7 @@ html, body {
 .page-container {
   background-color: #f8f9fa; 
   min-height: 100vh;
-  padding-top: 20px;
+  padding-top: 80px;
 }
 
 .container {
@@ -135,12 +146,22 @@ html, body {
 div.sidebar .sidebar-links a {
   color: #4e4b4b;
   text-decoration: none;
+  padding-top: 20px;
 }
 
 
 .sidebar-links a:hover {
   color: #555; 
 }
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar{
+  margin-top: 50px;
+}
+
 
 .filter-btn {
   background-color: #f8f9fa;

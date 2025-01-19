@@ -43,32 +43,15 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useNuxtApp } from '#app'; // Nuxt plugin'e erişim
-import { getDocs, collection } from 'firebase/firestore';
+import { useCarouselStore } from '@/stores/carouselStore'; // Pinia store import
 
-// Reactive değişken
-const carouselImages = ref([]); // Firebase'den çekilecek carousel resimleri
+// Pinia store'dan carousel verilerini almak
+const { images: carouselImages, fetchCarouselImages, loading, error } = useCarouselStore();
 
-// Nuxt app içinden Firebase servisine erişim
-const { $db } = useNuxtApp();
-
-// Firebase'den verileri çekmek için method
-const fetchCarouselImages = async () => {
-  try {
-    const querySnapshot = await getDocs(collection($db, 'carousel'));
-    const imageData = querySnapshot.docs.map((doc) => doc.data());
-    console.log(imageData); // Verileri kontrol edin
-    carouselImages.value = imageData;
-  } catch (error) {
-    console.error('Veriler alınırken hata oluştu:', error);
-  }
-};
-
-// Component yüklendiğinde verileri çek
+// Verileri çekmek için component yüklendiğinde çağır
 onMounted(() => {
   fetchCarouselImages();
 });
-
 </script>
 
 <style scoped>

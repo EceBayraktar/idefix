@@ -8,24 +8,20 @@
       <div class="carousel-container">
         <br>
         <div class="carousel" ref="carousel">
-          <div class="card" v-for="(card, index) in cards" :key="index">
-          
+          <div class="card" v-for="(card, index) in products" :key="index">
             <div class="image-container">
               <img :src="card.img" class="card-img-top small-image" :alt="card.alt || card.title">
             </div>
             <div class="card-body">
-            
               <div class="col-10" style="text-align:center; font-size:x-small">
                 <div v-if="card.discountPrice" class="discount-price" style="border: 2px dashed rgb(38, 25, 158);">
                   Sepette {{ card.discountPrice }}
                 </div>
-                <div v-else class="empty-space" style="height:25px;"></div> 
+                <div v-else class="empty-space" style="height:25px;"></div>
               </div>
               <div class="stars">
                 <i class="bi bi-star-fill" v-for="n in Math.floor(card.rating)" :key="'full-' + index + '-' + n"></i>
-
                 <i class="bi bi-star-half" v-if="card.rating % 1 !== 0" :key="'half-' + index"></i>
-
                 <i class="bi bi-star" v-for="emptyIndex in (5 - Math.ceil(card.rating))" :key="'empty-' + index + '-' + emptyIndex"></i>
                 <span class="n">{{ card.reviews }}</span>
               </div>
@@ -44,64 +40,51 @@
       </div>
     </div>
     <div class="col"></div>
-    
   </div>
 </template>
 
-
 <script setup>
-import { onMounted, ref, computed } from 'vue';
-import { useNuxtApp } from '#app';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { ref, onMounted, computed } from 'vue';
+import { useProductsStore } from '@/stores/productsStore';
 
-const cards = ref([]);
+const store = useProductsStore();
+const products = ref([]); // Reaktif olarak ürünleri saklama
 const currentIndex = ref(0);
+const carousel = ref(null);
 const visibleCards = 5;
-const cardMargin = 20;
-
-const { $db } = useNuxtApp();
 
 const cardWidth = computed(() => {
-  const carousel = document.querySelector('.carousel');
-  const card = carousel?.children[0];
-  return card ? card.offsetWidth + cardMargin : 0;
+  const cardElement = carousel.value?.children[0];
+  return cardElement ? cardElement.offsetWidth + 20 : 0; // Card genişliği + margin
 });
 
 const fetchCards = async () => {
   try {
-    const querySnapshot = await getDocs(collection($db, 'products'));
-    const cardData = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    cards.value = cardData;
+    await store.fetchProducts();
+    products.value = store.products; // Store'dan ürünleri çekme
   } catch (error) {
-    console.error('Veriler alınırken hata oluştu:', error);
+    console.error('Ürünler yüklenirken hata oluştu:', error);
   }
 };
 
-
-
 const addToCart = async (card) => {
-  console.log(card);
   try {
-    await addDoc(collection($db, 'sepet'), {
-        color: card.color,  // Firestore'daki color alanı
-        description: card.description,  // Firestore'daki description alanı
-        discountPrice: card.discountPrice,  // Firestore'daki discountPrice alanı
-        img: card.img,  // Firestore'daki img alanı
-        price: card.price,  // Firestore'daki price alanı
-        rating: card.rating,  // Firestore'daki rating alanı
-        reviews: card.reviews,  // Firestore'daki reviews alanı
-        title: card.title,  // Firestore'daki title alanı
-        satıcı: card.satıcı,  // Firestore'daki satıcı alanı
-        satıcıpuanı: card.satıcıpuanı,  // Firestore'daki satıcıpuanı alanı
-        quantity: 1,
-      });
+    await store.addProductToCart(card);
+    console.log(`${card.title} sepete eklendi.`);
   } catch (error) {
     console.error('Sepete eklenirken hata oluştu:', error);
   }
 };
 
+const updateCarousel = () => {
+  const translateX = -(currentIndex.value * cardWidth.value);
+  if (carousel.value) {
+    carousel.value.style.transform = `translateX(${translateX}px)`;
+  }
+};
+
 const nextSlide = () => {
-  if (currentIndex.value < cards.value.length - visibleCards) {
+  if (currentIndex.value < products.value.length - visibleCards) {
     currentIndex.value++;
     updateCarousel();
   }
@@ -114,22 +97,11 @@ const prevSlide = () => {
   }
 };
 
-const updateCarousel = () => {
-  const translateX = -(currentIndex.value * cardWidth.value);
-  const carousel = document.querySelector('.carousel');
-  if (carousel) {
-    carousel.style.transform = `translateX(${translateX}px)`;
-  }
-};
-
 onMounted(() => {
-  fetchCards();
+  fetchCards(); // Bileşen yüklendiğinde ürünleri getir
 });
+
 </script>
-
-
-
-
 
 <style scoped>
 .discount-price {
