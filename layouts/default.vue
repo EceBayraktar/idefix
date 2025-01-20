@@ -22,34 +22,19 @@
           <NuxtLink to="/">Ana Sayfa</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="/HeaderPage">Header</NuxtLink>
-        </li>
-        <li>
           <NuxtLink to="/GirisyapPage">Giriş Yap</NuxtLink>
         </li>
         <li>
           <NuxtLink to="/UyeolPage">Üye Ol</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="/CarouselPage">Carousel</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/CardPage">Card</NuxtLink>
-        </li>
-        <li>
           <NuxtLink to="/SepetPage">Sepet</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/SliderPage">Slider</NuxtLink>
         </li>
         <li>
           <NuxtLink to="/UruncardPage">Ürün Bilgisi</NuxtLink>
         </li>
         <li>
           <NuxtLink to="/BegendiklerimPage">Beğendiklerim</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="/FooterPage">Footer</NuxtLink>
         </li>
         <li>
           <NuxtLink to="/PasswordPage">Password</NuxtLink>
