@@ -2,7 +2,7 @@
   <nav class="navbar bg-body-tertiary">
     <div class="container-fluid d-flex align-items-center" style="gap: 30px;">
   
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="#" @click.prevent="navigateTo('')">
         <img src="https://asset.idefix.com/images/app-icons/logo.svg" alt="Logo" width="120" height="100" class="d-inline-block align-text-top">
       </a>
       <div class="d-flex justify-content-center align-items-center flex-grow-1 mx-3">
@@ -18,13 +18,13 @@
       </div>
 
       <div class="d-flex align-items-center" style="margin-left: 30px;">
-        <span class="login-text" style="font-size: 12px; color: black; text-align: center; margin-right: 15px;">
-          <span class="register-text" style="font-size: 14px; font-weight: bold; color: black;">Giriş Yap</span>
-          <br> veya Üye Ol
-        </span>
-        <i class="bi bi-person" style="font-size: 25px; margin-right: 15px;"></i>
-        <i class="bi bi-heart" style="font-size: 25px; margin-right: 15px;"></i>
-        <i class="bi bi-bag" style="font-size: 25px; margin-right: 25px;"></i>
+        <a class="login-text" style="font-size: 12px; color: black; text-align: center; margin-right: 15px; text-decoration: none;">
+          <span class="register-text" style="font-size: 14px; font-weight: bold; color: black;" @click.prevent="navigateTo('GirisyapPage')">Giriş Yap</span>
+          <br><span @click.prevent="navigateTo('UyeolPage')">veya Üye Ol</span>
+        </a>
+        <i class="bi bi-person" style="font-size: 25px; margin-right: 15px;" @click="navigateTo('GirisyapPage')"></i>
+        <i class="bi bi-heart" style="font-size: 25px; margin-right: 15px;" @click="navigateTo('BegendiklerimPage')"></i>
+        <i class="bi bi-bag" style="font-size: 25px; margin-right: 25px;" @click="navigateTo('SepetPage')"></i>
       </div>
     </div>
     <div class="col-12">

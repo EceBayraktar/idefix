@@ -1,220 +1,270 @@
 <template>
-  <div class="row">
-  <div class="col-12" style="margin-left:50px; margin-top:10px;">
+  <HeaderPage />
+  <div class="row" style="background-color: white;">
+    <div class="col-12" style="margin-left:50px; margin-top:10px;" >
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#" class="text-black">Ana Sayfa</a></li>
+          <li class="breadcrumb-item"><a href="#" class="text-black">Hobi & Kültür</a></li>
+          <li class="breadcrumb-item"><a href="#" class="text-black">Kitap</a></li>
+          <li class="breadcrumb-item"><a href="#" class="text-black">Edebiyat</a></li>
+          <li class="breadcrumb-item"><a href="#" class="text-black">Roman</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Türk Roman</li>
+        </ol>
+      </nav>
+    </div>
     
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#" class="text-black">Ana Sayfa</a></li>
-        <li class="breadcrumb-item"><a href="#" class="text-black">Hobi & Kültür</a></li>
-        <li class="breadcrumb-item"><a href="#" class="text-black">Kitap</a></li>
-        <li class="breadcrumb-item"><a href="#" class="text-black">Edebiyat</a></li>
-        <li class="breadcrumb-item"><a href="#" class="text-black">Roman</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Türk Roman</li>
-      </ol>
-    </nav>
-  </div>
-  <div class="col-1"></div>
+    <div class="col-1"></div>
 
-  <div class="col-4">
-    <div class="outer-frame">
-      <div class="product-image text-center position-relative inner-frame">
+    <div class="col-4">
+      <div class="outer-frame">
+        <div class="product-image text-center position-relative inner-frame">
           <div class="top-right-images">
+            <img
+              src="https://asset.idefix.com/images/app-icons/empty-heart.svg"
+              alt="Favorilere Ekle"
+              class="top-image"
+              @click="handleClick('empty-heart')"
+            />
+            <img
+              src="https://asset.idefix.com/images/app-icons/pdp/bookmark.svg"
+              alt="İşaretle"
+              class="top-image"
+              @click="handleClick('bookmark')"
+            />
+            <img
+              src="https://asset.idefix.com/images/app-icons/pdp/share.svg"
+              alt="Paylaş"
+              class="top-image"
+              @click="handleClick('share')"
+            />
+          </div>
+          <img :src="showphoto" alt="Ürün Görseli" class="img-fluid" />
+          <button class="arrow-button left-arrow" @click="previousImage">←</button>
+          <button class="arrow-button right-arrow" @click="nextImage">→</button>
+        </div>
+
+        <div class="d-flex justify-content-left mt-3 thumbnail-container">
           <img
-            src="https://asset.idefix.com/images/app-icons/empty-heart.svg"
-            alt="Resim 1"
-            class="top-image"
-            @click="handleClick('empty-heart')"
-          />
-          <img
-            src="https://asset.idefix.com/images/app-icons/pdp/bookmark.svg"
-            alt="Resim 2"
-            class="top-image"
-            @click="handleClick('bookmark')"
-          />
-          <img
-            src="https://asset.idefix.com/images/app-icons/pdp/share.svg"
-            alt="Resim 3"
-            class="top-image"
-            @click="handleClick('share')"
+            v-for="(thumb, index) in thumbnail"
+            :key="index"
+            :src="thumb"
+            alt="Küçük Resim"
+            class="img-thumbnail mx-2"
+            @click="updateMainImage(thumb)"
           />
         </div>
-        <img :src="mainImage" alt="Ürün Görseli" class="img-fluid " />
-        <button class="arrow-button left-arrow" @click="previousImage">←</button>
-        <button class="arrow-button right-arrow" @click="nextImage">→</button>
-      
-      </div>
-
-      <div class="d-flex justify-content-left mt-3 thumbnail-container">
-        <img
-          v-for="(thumb, index) in thumbnails"
-          :key="index"
-          :src="thumb"
-          alt="Küçük Resim"
-          class="img-thumbnail mx-2"
-          max
-          @click="updateMainImage(thumb)"
-        />
       </div>
     </div>
-</div>
+
     <div class="col-3">
-      <h1 class="product-name">{{ productName }}</h1>
-      <p class="text-muted">Guardian Yayınları</p>
+      <h1 class="product-name">{{ description }}</h1>
+      <p class="text-muted">{{ productpage.yayınevi }}</p>
       <h2 class="price">{{ price.toLocaleString() }} TL</h2>
 
-      <p>Kitap Formatı</p>
+      <p></p>
       <div class="row g-3">
         <div
           class="col-12 d-flex align-items-center border p-2 rounded mb-3"
-          v-for="(option, index) in colors"
+          v-for="(productpage, index) in colors"
           :key="index"
         >
           <input
             type="radio"
             :id="'color-' + index"
-            :value="option.name"
+            :value="productpage.name"
             v-model="selectedColor"
-            class="form-check-input me-3"
+            class="form-check-input me-3" 
           />
           <img
-            :src="option.image"
+            :src="productpage.showpage"
             alt="Renk Resmi"
             class="img-fluid me-3"
             style="width: 35px; height: 65px;"
           />
           <div>
             <label :for="'color-' + index" class="form-check-label">
-              {{ option.name }}
+              {{ productpage.name }}
             </label>
-            <p class="price-small  m-0">{{ option.price.toLocaleString() }} TL</p>
+            <p class="price-small m-0">{{ productpage.price.toLocaleString() }} TL</p>
           </div>
-        
+        </div>
       </div>
-     
-      <div class="row"> 
-          <div class="col-4">
-              <p>Kitap Formatı</p>
-              <p style="font-weight:bold">{{ format }}</p>
-          </div>
-          
-          <div class="col-4">
-              <p>Yazar</p>
-              <p style="font-weight:bold; text-decoration: underline;" >{{ yazar }}</p>
-          </div>
-          <div class="col-4">
-              <p>Basım Dili</p>
-              <p style="font-weight:bold">{{ dili }}</p>
-          </div>
+      <br>
 
-          <div class="col-4">
-              <p>İlk Baskı Yılı</p>
-              <p style="font-weight:bold">{{ ilkbaskı }}</p>
-          </div>
-          
-          <div class="col-4">
-              <p>Hamur Kalitesi</p>
-              <p style="font-weight:bold">{{ kalite }}</p>
-          </div>
+      <div class="row">
+        <div class="col-4">
+          <p>Kitap Formatı</p>
+          <p style="font-weight: bold">{{ format }}</p>
+        </div>
+        <div class="col-4">
+          <p>Yazar</p>
+          <p style="font-weight: bold; text-decoration: underline;">{{ yazar }}</p>
+        </div>
+        <div class="col-4">
+          <p>Basım Dili</p>
+          <p style="font-weight: bold">{{ dili }}</p>
+        </div>
 
-          <div class="col-4">
-              <p>Baskı Sayısı</p>
-              <p style="font-weight:bold">{{ baskısayısı }}</p>
-          </div>
-          </div>
+        <div class="col-4">
+          <p>İlk Baskı Yılı</p>
+          <p style="font-weight: bold">{{ ilkbaskı }}</p>
+        </div>
 
+        <div class="col-4">
+          <p>Hamur Kalitesi</p>
+          <p style="font-weight: bold">{{ kalite }}</p>
+        </div>
+
+        <div class="col-4">
+          <p>Baskı Sayısı</p>
+          <p style="font-weight: bold">{{ baskısayısı }}</p>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="col-2">
-    <div class="price-section">
-      <h3 class="price">184,78 TL</h3>
-      <p class="shipping-date">07 Aralık Perşembe kargoda</p>
-      <p class="installment">
-        Tek Çekim x <strong>184,78 TL</strong> = 184,78 TL
-      </p>
-      <a href="#" class="installment-options">Farklı Taksit Seçenekleri</a>
 
-      <button class="btn btn-success w-100 mt-3">Sepete Ekle</button>
+    <div class="col-2">
+      <div class="price-section">
+        <h3 class="price">{{ price.toLocaleString() }} TL</h3>
+        <p class="shipping-date">07 Aralık Perşembe kargoda</p>
+        <p class="installment">
+          Tek Çekim x <strong>{{ price.toLocaleString() }} TL</strong> = {{ price.toLocaleString() }} TL
+        </p>
+        <a href="#" class="installment-options">Farklı Taksit Seçenekleri</a>
 
-      <div class="seller-info mt-4" style="display: flex; justify-content: space-between; align-items: center;">
-        <span>
-          Satıcı: <a href="#" class="seller-name">idefix (9.7)</a>
-        </span>
-        <a href="#" class="ask-seller">Satıcıya Soru Sor</a>
-      </div>
-      <hr/>
-      <div class="price-alert mt-3">
-        <i class="bi bi-bell"></i>
-        <a href="#" class="alert-link"> Fiyat Alarmı</a>
-      </div>
+        <!-- Sepete ekle butonu -->
+        <button class="btn btn-success w-100 mt-3" @click="addToCart">Sepete Ekle</button>
 
-      <div class="other-sellers mt-4">
-        <h5>Diğer Satıcılar(1)</h5>
-        <div class="seller-card p-3 mt-2">
-          <div class="d-flex align-items-center">
-            <h6 class="store-name mb-0">KitapStore</h6>
-            <span class="badge  ms-1" style="background-color:#55bd4f">4.1</span>
+        <div class="seller-info mt-4" style="display: flex; justify-content: space-between; align-items: center;">
+          <span>
+            Satıcı: <a href="#" class="seller-name">idefix (9.7)</a>
+          </span>
+          <a href="#" class="ask-seller">Satıcıya Soru Sor</a>
+        </div>
+        <hr />
+        <div class="price-alert mt-3">
+          <i class="bi bi-bell"></i>
+          <a href="#" class="alert-link"> Fiyat Alarmı</a>
+        </div>
+
+        <div class="other-sellers mt-4">
+          <h5>Diğer Satıcılar(1)</h5>
+          <div class="seller-card p-3 mt-2">
+            <div class="d-flex align-items-center">
+              <h6 class="store-name mb-0">{{ satıcı }}</h6>
+              <span class="badge ms-1" style="background-color:#55bd4f">{{ satıcıpuanı }}</span>
+            </div>
+            <p class="shipping-info">07 Aralık Cumartesi kargoda</p>
+            <h6 class="store-price">{{ price.toLocaleString() }} TL</h6>
           </div>
-          <p class="shipping-info">07 Aralık Cumartesi kargoda</p>
-          <h6 class="store-price">184,78TL</h6>
         </div>
       </div>
     </div>
   </div>
-  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup>
+import { onMounted, ref } from 'vue';
+import { useNuxtApp } from '#app'; // Nuxt plugin'e erişim
+import { getDocs, collection, addDoc } from 'firebase/firestore';
 
-export default defineComponent({
-  data() {
-    return {
-      productName: 'Bronz 3 - İmparatoriçe Özge Naz',
-      price: 18478,
-      format: 'Ciltli',
-      yazar: 'Özge Naz',
-      dili: 'Türkçe',
-      ilkbaskı: '',
-      kalite: '2.Hamur',
-      baskısayısı: '1.Basım',
-      mainImage: 'https://i.idefix.com/resize/800/0/cache/600x600-0/originals/0002150379001-1.jpg',
-      thumbnails: [
-            'https://i.idefix.com/resize/150/0/cache/600x600-0/originals/0002150379001-1.jpg',
-            'https://i.idefix.com/resize/150/0/cache/600x600-0/originals/0002150379001-2.jpg',
-      ],
-      colors: [
-        {
-          name: 'Ciltli',
-          price: 18478,
-          image:
-            'https://i.idefix.com/resize/100/0/cache/600x600-0/originals/0002150379001-1.jpg',
-        },
-      ],
-      selectedColor: 'Ciltli',
-    };
-  },
-  methods: {
-    updateMainImage(image: string) {
-      this.mainImage = image;
-    },
-    nextImage() {
-    let currentIndex = this.thumbnails.indexOf(this.mainImage);
-    if (currentIndex < this.thumbnails.length - 1) {
-      this.mainImage = this.thumbnails[currentIndex + 1];
-    }
-  },
-  previousImage() {
-    let currentIndex = this.thumbnails.indexOf(this.mainImage);
-    if (currentIndex > 0) {
-      this.mainImage = this.thumbnails[currentIndex - 1];
-    }
-  },
-  handleClick(action: string) {
-    console.log(action + ' tıklandı');
-  },
-  },
+// Reactive değişkenler
+const description = ref('');
+const img = ref('');
+const thumbnail = ref([]);
+const price = ref(0);
+const format = ref('');
+const yazar = ref('');
+const dili = ref('');
+const ilkbaskı = ref('');
+const kalite = ref('');
+const baskısayısı = ref('');
+const showphoto = ref('');
+const colors = ref([]);
+const satıcı = ref('');
+const satıcıpuanı = ref('');
+const productpage = ref({
+  yayınevi: '',
 });
+const cart = ref([]); // Sepet değişkeni
+
+import HeaderPage from '~/pages/HeaderPage.vue';
+// Nuxt app içinden Firebase servisine erişim
+const { $db } = useNuxtApp();
+
+onMounted(async () => {
+  try {
+    const productRef = collection($db, 'productpage'); // Firestore collection name
+    const querySnapshot = await getDocs(productRef);
+
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach((doc) => {
+        const productData = doc.data();
+        description.value = productData.description || '';
+        img.value = productData.img || '';
+        thumbnail.value = productData.thumbnail || [];
+        showphoto.value = productData.showphoto || '';
+        price.value = productData.price || 0;
+        format.value = productData.format || '';
+        yazar.value = productData.yazar || '';
+        dili.value = productData.dili || '';
+        satıcı.value = productData.satıcı || '';
+        satıcıpuanı.value = productData.satıcıpuanı || '';
+        ilkbaskı.value = productData.ilkbaskı || '';
+        kalite.value = productData.kalite || '';
+        baskısayısı.value = productData.baskısayısı || '';
+        colors.value = productData.colors || [];
+        productpage.value.yayınevi = productData.yayınevi || '';
+      });
+    } else {
+      console.log('No products found in Firestore.');
+    }
+  } catch (error) {
+    console.error('Error fetching product data from Firestore:', error);
+  }
+});
+
+// Sepete ekleme işlemi (Firestore koleksiyonuna veri ekleme)
+const addToCart = async () => {
+  const cartItem = {
+    description: description.value,
+    price: price.value,
+    img: showphoto.value,
+    satıcı: satıcı.value,
+    satıcıpuanı: satıcıpuanı.value,
+    quantity: 1, // Varsayılan olarak 1 adet
+  };
+
+  try {
+    // Firestore'da 'sepet' koleksiyonuna yeni bir belge ekle
+    await addDoc(collection($db, 'sepet'), cartItem);
+    console.log('Sepete Eklendi:', cartItem);
+  } catch (error) {
+    console.error('Sepete eklerken hata oluştu:', error);
+  }
+};
+
+const updateMainImage = (thumb) => {
+  showphoto.value = thumb;
+};
+
+const previousImage = () => {
+  const currentIndex = thumbnail.value.indexOf(showphoto.value);
+  const previousIndex = (currentIndex - 1 + thumbnail.value.length) % thumbnail.value.length;
+  showphoto.value = thumbnail.value[previousIndex];
+};
+
+const nextImage = () => {
+  const currentIndex = thumbnail.value.indexOf(showphoto.value);
+  const nextIndex = (currentIndex + 1) % thumbnail.value.length;
+  showphoto.value = thumbnail.value[nextIndex];
+};
 </script>
+
+<style scoped>
+/* Style rules here */
+</style>
+
 
 <style scoped>
 .breadcrumb-item a {
@@ -239,6 +289,16 @@ transform: translateY(-50%);
 .left-arrow {
 left: 10px;
 }
+/* Genel arka plan beyaz */
+.body {
+  background-color: white;
+}
+
+/* Belirli bir div için beyaz arka plan */
+.outer-frame {
+  background-color: white;
+}
+
 
 .right-arrow {
 right: 10px;
@@ -401,7 +461,7 @@ border-color: #55bd4f;
 }
 
 .seller-card {
-  background-color: #f9f9f9;
+  background-color: #dfdada;
 }
 
 .store-name {
